@@ -2,7 +2,7 @@ package class03;
 
 import java.util.Stack;
 
-public class Code05_GetMainStack {
+public class Code05_GetMinStack {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

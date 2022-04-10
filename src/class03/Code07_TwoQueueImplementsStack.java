@@ -95,6 +95,7 @@ public class Code07_TwoQueueImplementsStack {
 			}
 			// 取A的最后一个元素
 			int ans = A.peek();
+			// 元素没有实际出队列，不需要互换A和B
 			return ans;
 		}
 		

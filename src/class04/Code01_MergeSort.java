@@ -1,5 +1,7 @@
 package class04;
 
+import java.util.Arrays;
+
 public class Code01_MergeSort {
 	/**
 	 * 归并排序，递归实现。
@@ -9,8 +11,7 @@ public class Code01_MergeSort {
 	 * 3.f(arr,M + 1, R)保证M+1 - R 有序
 	 * 4. 合并两边有序的数组
 	 *   1）准备一个辅助数组，合并的时候，有两个指针分别指向左右两个数组元素，比较两个元素，谁小则将
-	 *   谁拷贝到辅助数组中，指针向下移动；相等的话，将左边的元素拷贝到辅助数组中（为什么
-	 *   不拷贝右边，因为不知道左边下一个元素和右边这个元素比较是什么情况）
+	 *   谁拷贝到辅助数组中，指针向下移动; （等于的时候拷贝谁都可以）
 	 *   2）将左右两边剩下的元素，直接全部拷贝到辅助数组中。注意拷贝的时候原数组的下标是L + j
 	 */
 	public static void mergeSort1(int arr[]) {
@@ -32,13 +33,20 @@ public class Code01_MergeSort {
 		merge(arr, L, mid, R);
 	}
 	
+	/**
+	 * Merge 的时间复杂度是O(N), 因为比较元素，指针不回退。
+	 * @param arr
+	 * @param L
+	 * @param M
+	 * @param R
+	 */
 	public static void  merge(int arr[], int L, int M, int R) {
 		int p1 = L;
 		int p2 = M + 1;
 		int helper[] = new int[R - L + 1]; // 辅助数组的长度，每次merge的时候都不一样，所以是R - L + 1
 		int i = 0;
 		while(p1 <= M && p2 <= R) {
-			if(arr[p1] <= arr[p2]) { // 左组小于等于右组，拷贝左组
+			if(arr[p1] < arr[p2]) { // 左组小于等于右组，拷贝左组
 				helper[i++] = arr[p1++];
 			} else { // 拷贝右组
 				helper[i++] = arr[p2++];
@@ -91,7 +99,6 @@ public class Code01_MergeSort {
 			step <<= 1;
 		}
 	}
-	
 
 	// for test
 	public static int[] generateRandomArray(int maxSize, int maxValue) {
@@ -154,7 +161,8 @@ public class Code01_MergeSort {
 			int[] arr1 = generateRandomArray(maxSize, maxValue);
 			int[] arr2 = copyArray(arr1);
 			mergeSort1(arr1);
-			mergeSort2(arr2);
+//			mergeSort2(arr2);
+			Arrays.sort(arr2);
 			if (!isEqual(arr1, arr2)) {
 				System.out.println("出错了！");
 				printArray(arr1);

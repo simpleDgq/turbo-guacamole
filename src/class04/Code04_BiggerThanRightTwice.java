@@ -41,7 +41,9 @@ public class Code04_BiggerThanRightTwice {
 			while(windowR <= R && arr[i] > arr[windowR] << 1) {
 				windowR++;
 			}
-			ans += windowR - M - 1;
+			ans += windowR - M - 1; // windowR不回退，当前windowR指向的元素满足条件，
+			                        //那么它之前得也一定满足，windowR - M - 1已经算上了前面的数了
+			
 		}
 		
 		// 去merge吧

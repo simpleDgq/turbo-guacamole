@@ -47,7 +47,7 @@ public class Code03_ReversePair {
 		return 
 				process(arr, L, M) 
 				+ process(arr, M + 1, R) 
-				+ merge(arr, L, M, R);	
+				+ merge2(arr, L, M, R);	
 	}
 	
 	public static int merge(int arr[], int L, int M, int R) {
@@ -71,10 +71,48 @@ public class Code03_ReversePair {
 		while(p2 >= M + 1) {
 			helper[i++] = arr[p2--];
 		}
-		// 这里需要注意的是: 在merge完成之后，helper数组里面的数是从大到小排序的，
-		// 需要逆序拷贝到arr中，变成正序，所以从R开始放，放一个R--
+		// 这里需要注意的是: 在merge完成之后，helper数组里面的数是从大到小排序的（实际举例子来看到这点），
+		// 需要逆序拷贝到arr中，变成正序，所以从R开始放，放一个之后，R--
 		for(int j = 0; j <= helper.length - 1; j++) {
 			arr[R--] = helper[j];
+		}
+		return ans;
+	}
+	
+	/**
+	 * 先计算出有多少个满足条件的数，再去merge。
+	 */
+	public static int merge2(int arr[], int L, int M, int R) {
+		int windowR = M + 1;
+		int ans = 0;
+		// 先计算对于左组中的每个数，右组中有多少个满足条件的数
+		for(int i = L; i <= M; i++) { // 计算出右组中有多少个数比左组的当前数小
+			while(windowR <= R && arr[i] > arr[windowR]) {
+				windowR++;
+			}
+			ans += windowR - M - 1;
+		}
+		
+		// 后merge
+		int p1 = L;
+		int p2 = M + 1; 
+		int helper[] = new int[R - L + 1];
+		int i = 0;
+		while(p1 <= M && p2 <= R) {
+			if(arr[p1] < arr[p2]) { // 左组小于右组
+				helper[i++] = arr[p1++];
+			} else { //左组大于等于右组
+				helper[i++] = arr[p2++];
+			}
+		}
+		while(p1 <= M) {
+			helper[i++] = arr[p1++];
+		}
+		while(p2 <= R) {
+			helper[i++] = arr[p2++];
+		}
+		for(int j = 0; j <= helper.length - 1; j++) {
+			arr[L + j] = helper[j];
 		}
 		return ans;
 	}

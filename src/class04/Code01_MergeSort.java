@@ -80,7 +80,7 @@ public class Code01_MergeSort {
 		while(step < N) {
 			int L = 0; // 每次调整步长之后，左组总是从0位置开始
 			
-			// 一组组merge去吧
+			// 从左往右一组组merge去吧
 			while(L < N) { // 每次merge完之后，需要去进行下一轮的merge，L会跳到下一个左组的位置上
 						   //L不能超过N. 超过N说明已经没有元素了
 				int M = L + step - 1; // 左组的最后一个元素的下标

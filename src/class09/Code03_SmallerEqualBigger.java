@@ -67,6 +67,7 @@ public class Code03_SmallerEqualBigger {
 			}
 			cur = next;
 		}
+		// 注意下面的代码
 		// 链接各个区域
 		if(LH != null) { // 如果有小于区
 			LT.next = EH; // 不管有没有等于区，都不会报错

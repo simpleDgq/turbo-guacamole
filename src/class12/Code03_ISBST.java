@@ -1,7 +1,5 @@
 package class12;
 
-import java.util.ArrayList;
-
 public class Code03_ISBST {
 	/**
 	 * 判断一棵树是否是搜索二叉树

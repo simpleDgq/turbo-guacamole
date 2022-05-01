@@ -14,7 +14,10 @@ public class Code02_IsBalancedTree {
 	 * 需要从左树搜集两个信息：isBalanced, height
 	 * 右树也是一样。
 	 * 
-	 * 从左树搜集到这些信息后，针对X，也需要计算出这些信息，判断以X为头的树是不是平衡的，以及计算整棵树的高度。
+	 * 取并集：
+	 * 要搜集的信息是isBalanced, height
+	 * 
+	 * 从左树搜集到这些信息后，针对X为头的整棵树，也需要计算出这些信息，判断以X为头的树是不是平衡的，以及计算整棵树的高度。
 	 */
 	
 	public static class Node {

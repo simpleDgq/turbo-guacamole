@@ -1,7 +1,5 @@
 package class12;
 
-import java.util.ArrayList;
-
 public class Code07_MaxSubBSTHead {
 	/**
 	 * 求二叉树中最大的二叉搜索子树的头结点

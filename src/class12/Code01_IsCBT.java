@@ -59,4 +59,83 @@ public class Code01_IsCBT {
 		}
 		return isCBT;
 	}
+	
+	/**
+	 * 用二叉树递归套路解决
+	 * 
+	 * 分析可能性：
+	 * 一颗二叉树是完全二叉树可以分为四种可能性：
+	 * 1. 左树满，右树满，左树的高度 == 右树的高度
+	 * 2. 左树满，右树满，左树的高度 == 右树的高度 + 1
+	 * 3. 左树完，右树满，左树的高度 == 右树的高度 + 1
+	 * 4. 左树满，右树完，左树的高度 == 右树的高度
+	 * 
+	 * 要搜集的信息：
+	 * 左树是否满、完，右树是否满、完
+	 * 左树和右树高度
+	 * 
+	 * 并集：
+	 * isFull、isComplete、height
+	 */
+	public static class Info {
+		boolean isFull;
+		boolean isComplete;
+		int hegiht;
+		public Info(boolean isFull, boolean isComplete, int height) {
+			this.isFull = isFull;
+			this.isComplete = isComplete;
+			this.hegiht = height;
+		}
+	}
+	public static boolean isCBT2(Node head) { 
+		if(head == null) {
+			return true;
+		}
+		return process(head).isComplete;
+	}
+	public static Info process(Node X) {
+		if(X == null) { // 空树，Info好设置
+			return new Info(true, true, 0);
+		}
+		Info leftInfo = process(X.left);
+		Info rightInfo = process(X.right);
+		// X节点为头的树，构造Info
+		boolean isFull = leftInfo.isFull && rightInfo.isFull && leftInfo.hegiht == rightInfo.hegiht;
+		int height = Math.max(leftInfo.hegiht, rightInfo.hegiht) + 1;
+		boolean isComplete = false;
+		if(leftInfo.isFull && rightInfo.isFull && leftInfo.hegiht == rightInfo.hegiht) {
+			isComplete = true;
+		} else if(leftInfo.isFull && rightInfo.isFull && leftInfo.hegiht == rightInfo.hegiht + 1) {
+			isComplete = true;
+		} else if(leftInfo.isFull && rightInfo.isComplete && leftInfo.hegiht == rightInfo.hegiht) {
+			isComplete = true;
+		} else if(leftInfo.isComplete && rightInfo.isFull && leftInfo.hegiht == rightInfo.hegiht + 1) {
+			isComplete = true;
+		}
+		return new Info(isFull, isComplete, height);
+	}
+	
+	public static void main(String args[]) {
+		int maxLevel = 4;
+		int maxValue = 100;
+		int testTimes = 10000;
+		for(int i = 1; i <= testTimes; i++) {
+			Node head = generateRandomBST(maxLevel, maxValue);
+			if(isCBT2(head) != isCBT(head)) {
+				System.out.println("oops");
+			}
+		}
+	}
+	public static Node generateRandomBST(int maxLevel, int maxValue) {
+		return generate(1, maxLevel, maxValue);
+	}
+	public static Node generate(int level, int maxLevel, int maxValue) {
+		if(level > maxLevel || Math.random() <  0.5) {
+			return null;
+		}
+		Node head = new Node((int)(maxValue * Math.random()));
+		head.left = generate(level + 1, maxLevel, maxValue);
+		head.right = generate(level + 1, maxLevel, maxValue);
+		return head;
+	}
 }

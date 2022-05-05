@@ -43,7 +43,7 @@ public class Code01_UnionFind {
 			}
 		}
 		
-		// 找给定节点所在集合的代表节点
+		// 找给定节点所在集合的代表节点, 并且将经过的所有节点，直接连接在代表节点下
 		public Node<V> findFather(Node<V> cur) {
 			Stack<Node<V>> stack = new Stack<Node<V>>();
 			while(cur != parents.get(cur)) {

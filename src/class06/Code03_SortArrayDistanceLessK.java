@@ -1,5 +1,6 @@
 package class06;
 
+import java.util.Arrays;
 import java.util.PriorityQueue;
 
 public class Code03_SortArrayDistanceLessK {
@@ -25,7 +26,7 @@ public class Code03_SortArrayDistanceLessK {
 		PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>();
 		int i = 0;
 		// K > length的时候，将所有的元素入堆，然后出堆就行
-		for(; i <= Math.min(K + 1, arr.length - 1); i++) { // 0 - K+1 个元素入堆
+		for(; i <= Math.min(K, arr.length - 1); i++) { // 0 - K+1 个元素入堆
 			minHeap.add(arr[i]);
 		}
 		

@@ -63,10 +63,11 @@ public class Code03_PrintAllPermutations {
 		if (index == str.length) {
 			ans.add(String.valueOf(str));
 		} else {
+			// 进行交换，index位置的值只能和它自己以及后面的字符交换
 			for (int i = index; i < str.length; i++) {
 				swap(str, index, i); // 当前考虑的位置index，和后面的任意一个字符交换，得到一个答案
 				g1(str, index + 1, ans);
-				swap(str, index, i);
+				swap(str, index, i); // 下一个支路到来前，恢复现场
 			}
 		}
 	}

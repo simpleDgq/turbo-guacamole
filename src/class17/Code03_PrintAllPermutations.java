@@ -57,7 +57,8 @@ public class Code03_PrintAllPermutations {
 	}
 
 	/**
-	 * 给你str以及当前应该考虑的字符的index
+	 * 给你str以及当前应该考虑的字符的index，
+	 * 和后面的字符交换，考虑谁可以做index位置，你给我返回所有可能的结果
 	 */
 	public static void g1(char[] str, int index, List<String> ans) {
 		if (index == str.length) {

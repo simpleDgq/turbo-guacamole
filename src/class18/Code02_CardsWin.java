@@ -97,6 +97,9 @@ public class Code02_CardsWin {
 	}
 	
 	//3. 改动态规划
+	// 分析依赖，
+	// arr[L] + g(arr, L + 1, R)  ==> fMap依赖gMap(L + 1, R) ==> 下
+	// arr[R] + g(arr, L , R - 1); ==> fMap还依赖gMap(L, R - 1) ==> 左
 	public static int win3(int arr[]) {
 		if(arr == null || arr.length == 0) {
 			return 0;
@@ -107,7 +110,7 @@ public class Code02_CardsWin {
 		for(int i = 0; i <= N - 1; i++) {
 			fMap[i][i] = arr[i];
 		}
-		for(int startCol = 1; startCol <= N -1; startCol++) {
+		for(int startCol = 1; startCol <= N -1; startCol++) { // 斜着填表，从第一列开始，
 			int L = 0;
 			int R = startCol;
 			while(L <= N -1 && R <= N -1) {

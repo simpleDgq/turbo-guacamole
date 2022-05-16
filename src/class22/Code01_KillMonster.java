@@ -79,7 +79,7 @@ public class Code01_KillMonster {
 				dp[times][hp] = dp[times][hp - 1] + dp[times - 1][hp];
 				if (hp - 1 - M >= 0) {
 					dp[times][hp] -= dp[times - 1][hp - 1 - M];
-				} else { // hp - 1 - m< 0的时候，也多算了，要减掉
+				} else { // 这句注意：拿不到格子的时候，依然得减掉，公式决定。
 					dp[times][hp] -= Math.pow(M + 1, times - 1);
 				}
 			}

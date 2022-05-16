@@ -68,7 +68,7 @@ public class Code03_CoinsWayNoLimit {
 		dp[N][0] = 1;
 		for(int index = N - 1; index >= 0; index--) {
 			for(int rest = 0; rest <= aim; rest++) {
-				 // 对于一个普遍位置, 当前格子的值, 等于它右边的值+它下面的值
+				 // 对于一个普遍位置, 当前格子的值, 等于它左边的值+它下面的值
 				dp[index][rest] = dp[index + 1][rest] +
 						(rest - arr[index] >= 0 ? dp[index][rest - arr[index]] : 0); 
 			}

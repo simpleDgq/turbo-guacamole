@@ -12,7 +12,8 @@ public class Code01_MergeSort {
 	 * 4. 合并两边有序的数组
 	 *   1）准备一个辅助数组，合并的时候，有两个指针分别指向左右两个数组元素，比较两个元素，谁小则将
 	 *   谁拷贝到辅助数组中，指针向下移动; （等于的时候拷贝谁都可以）
-	 *   2）将左右两边剩下的元素，直接全部拷贝到辅助数组中。注意拷贝的时候原数组的下标是L + j
+	 *   2）将左右两边剩下的元素，直接全部拷贝到辅助数组中。
+	 *   3）将helper数组的元素全部拷贝到arr中，供下一次递归使用。注意拷贝的时候原数组的下标是L + j
 	 */
 	public static void mergeSort1(int arr[]) {
 		if(arr == null || arr.length == 0) {
@@ -84,7 +85,7 @@ public class Code01_MergeSort {
 			while(L < N) { // 每次merge完之后，需要去进行下一轮的merge，L会跳到下一个左组的位置上
 						   //L不能超过N. 超过N说明已经没有元素了
 				int M = L + step - 1; // 左组的最后一个元素的下标
-				if(M >= N) { //左组不够了或者正好到达了N，说明右组也没了，不需要merge，直接break，调整步长开始下一轮
+				if(M >= N) { //M>=N，说明右组没了，不需要merge，直接break，调整步长开始下一轮
 					break;
 				}
 				int R = Math.min(M + step, N - 1); // 右组的最后一个元素的下标。不够了的话，就是数组的最后下标

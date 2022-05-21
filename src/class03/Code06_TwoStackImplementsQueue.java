@@ -25,7 +25,7 @@ public class Code06_TwoStackImplementsQueue {
 	 * 思路:
 	 * 1. 准备两个栈，push栈和pop栈
 	 * 2. 加数据的时候，直接加入push栈
-	 * 3. 取数据的时候，先将push栈中的数据全部倒入pop栈中(注意: 只有在pop栈是空的时候才能倒数据)
+	 * 3. 取数据的时候，先将push栈中的数据全部倒入pop栈中(注意: 只有在pop栈是空的时候才能倒数据, 如果pop不为空，则直接取数据)
 	 * 然后从pop栈取数据
 	 */
 	

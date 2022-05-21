@@ -15,19 +15,19 @@ public class Code03_ReversePair {
 	 * 从右往左进行merge。
 	 * =============1=============
 	 * 例子：1 2 3 6   和 2 4 4 6
-	 *            ^            ^
+	 *          ^         ^
 	 * 如果左组等于右组，不累加，右组--，拷贝右组 （要求的是右边有多少个数比6小，相等的时候右组应该--，判断还有没有比6小的）
 	 * =============1=============
 	 * 
 	 * =========2=============
 	 * 例子：1 2 3 6   和 2 4 4 6
-	 *            ^          ^
-	 * 如果左组大于右组，则要累加，而且要将左组拷贝，左组-- (要求的目标是看它右边有多少个数比它小，1 <  4, 那么1之前的数一定都比4小)
+	 *          ^       ^
+	 * 如果左组大于右组，则要累加，而且要将左组拷贝，左组-- (要求的目标是看它右边有多少个数比它小，4 <  6, 那么4之前的数一定都比6小)
 	 * =========2=============
 	 * 
 	 * =========3=============
 	 * 例子：1 2 3 6   和 2 4 4 6
-	 *          ^            ^
+	 *        ^         ^
 	 * 如果左组小于右组，不累加，右组--，拷贝右组
 	 * =========3=============
 	 */
@@ -99,7 +99,7 @@ public class Code03_ReversePair {
 		int helper[] = new int[R - L + 1];
 		int i = 0;
 		while(p1 <= M && p2 <= R) {
-			if(arr[p1] < arr[p2]) { // 左组小于右组
+			if(arr[p1] < arr[p2]) { // 左组小于右组（等于拷贝谁都无所谓）
 				helper[i++] = arr[p1++];
 			} else { //左组大于等于右组
 				helper[i++] = arr[p2++];
@@ -116,4 +116,89 @@ public class Code03_ReversePair {
 		}
 		return ans;
 	}
+	
+	
+	// for test
+		public static int comparator(int[] arr) {
+			int ans = 0;
+			for (int i = 0; i < arr.length; i++) {
+				for (int j = i + 1; j < arr.length; j++) {
+					if (arr[i] > arr[j]) {
+						ans++;
+					}
+				}
+			}
+			return ans;
+		}
+
+		// for test
+		public static int[] generateRandomArray(int maxSize, int maxValue) {
+			int[] arr = new int[(int) ((maxSize + 1) * Math.random())];
+			for (int i = 0; i < arr.length; i++) {
+				arr[i] = (int) ((maxValue + 1) * Math.random()) - (int) (maxValue * Math.random());
+			}
+			return arr;
+		}
+
+		// for test
+		public static int[] copyArray(int[] arr) {
+			if (arr == null) {
+				return null;
+			}
+			int[] res = new int[arr.length];
+			for (int i = 0; i < arr.length; i++) {
+				res[i] = arr[i];
+			}
+			return res;
+		}
+
+		// for test
+		public static boolean isEqual(int[] arr1, int[] arr2) {
+			if ((arr1 == null && arr2 != null) || (arr1 != null && arr2 == null)) {
+				return false;
+			}
+			if (arr1 == null && arr2 == null) {
+				return true;
+			}
+			if (arr1.length != arr2.length) {
+				return false;
+			}
+			for (int i = 0; i < arr1.length; i++) {
+				if (arr1[i] != arr2[i]) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		// for test
+		public static void printArray(int[] arr) {
+			if (arr == null) {
+				return;
+			}
+			for (int i = 0; i < arr.length; i++) {
+				System.out.print(arr[i] + " ");
+			}
+			System.out.println();
+		}
+
+		// for test
+		public static void main(String[] args) {
+			int testTime = 500000;
+			int maxSize = 100;
+			int maxValue = 100;
+			System.out.println("测试开始");
+			for (int i = 0; i < testTime; i++) {
+				int[] arr1 = generateRandomArray(maxSize, maxValue);
+				int[] arr2 = copyArray(arr1);
+				if (reversePair(arr1) != comparator(arr2)) {
+					System.out.println("Oops!");
+					printArray(arr1);
+					printArray(arr2);
+					break;
+				}
+			}
+			System.out.println("测试结束");
+		}
+
 }

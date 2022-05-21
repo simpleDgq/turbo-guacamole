@@ -26,7 +26,7 @@ public class Code02_AllLessBNumSubArray {
 		int ans = 0;
 		LinkedList<Integer> maxWindow = new LinkedList<>();
 		LinkedList<Integer> minWindow = new LinkedList<>();
-		for(int L = 0; L <= N - 1; L++) { // L从0到N-1, 依次收集
+		for(int L = 0; L <= N - 1; L++) { // L从0到N-1, 依次收集以0开头，以1开头的子数组个数，类推....
 			while(R <= N - 1) { // R一直往右，直到到达不达标的第一个元素
 				int cur = arr[R];
 				while(!maxWindow.isEmpty() && arr[maxWindow.peekLast()] <= cur) {
@@ -46,7 +46,7 @@ public class Code02_AllLessBNumSubArray {
 			// 在break前，则会丢失这种情况下的答案
 			ans += R - L; //  收集答案. 
 			// L 即将过期，从最大值和最小值更新结构弹出过期下标
-			if(L == maxWindow.peekFirst()) { 
+			if(L == maxWindow.peekFirst()) { // 队列头元素如果不是L，就不需要弹出
 				maxWindow.pollFirst();
 			}
 			if(L == minWindow.peekFirst()) {

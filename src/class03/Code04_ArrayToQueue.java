@@ -1,11 +1,6 @@
 package class03;
 
 public class Code04_ArrayToQueue {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
 	
 	// 使用数组实现队列
 	public class MyQueue {
@@ -38,6 +33,10 @@ public class Code04_ArrayToQueue {
 			begin = (begin < limit - 1) ? (begin + 1) : 0;// 当前元素，还没有到队尾，则下一个位置是begin+1，到了队尾，则下一个位置是0
 			size--;
 			return ans;
+		}
+		
+		public boolean isEmpty() {
+			return size == 0;
 		}
 	}
 }

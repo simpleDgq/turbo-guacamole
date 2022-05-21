@@ -27,9 +27,9 @@ public class Code03_GasStation {
 		}
 		return -1;
 	}
-	
-	public static boolean[] goodArray(int cost[], int gas[]) {
-		int N = cost.length;
+
+	public static boolean[] goodArray(int[] gas, int[] cost) {
+        int N = cost.length;
 		int M = N << 1;
 		int arr[] = new int[M];
 		for(int i = 0; i <= N - 1; i++) {
@@ -47,22 +47,39 @@ public class Code03_GasStation {
 			}
 			minWindow.addLast(R);
 		}
-		boolean ans[] = new boolean[N];
-		int offset = 0;
-		int index = 0;
-		for(int R = N; R <= M - 1; R++, offset = arr[index++]) {
+        boolean ans[] = new boolean[N];
+//		int offset = 0;
+//		int index = 0;
+//		for(int R = N; R <= M - 1; R++, offset = arr[index++]) {
+//			// 当前窗口最薄弱的地方 - 减去当前窗口最左边的前一个数，得到的累加大于等于0，则说明L开头是可以的
+//			if(arr[minWindow.peekFirst()] - offset >= 0) { 
+//				ans[index] = true;
+//			}
+//			if(index == minWindow.peekFirst()) { // L位置即将过期
+//				minWindow.pollFirst();
+//			}
+//			while(!minWindow.isEmpty() && arr[minWindow.peekLast()] >= arr[R]) { // 加入一个右边的元素，扩大窗口
+//				minWindow.pollLast();
+//			}
+//			minWindow.addLast(R);
+//		}
+        // 上面的方法也可以，上面是考虑的R，下面是考虑的L
+        int R = N;
+        int offset = 0;
+        for(int L = 0; L <= N - 1; offset = arr[L], L++) {
 			// 当前窗口最薄弱的地方 - 减去当前窗口最左边的前一个数，得到的累加大于等于0，则说明L开头是可以的
 			if(arr[minWindow.peekFirst()] - offset >= 0) { 
-				ans[index] = true;
+				ans[L] = true;
 			}
-			if(index == minWindow.peekFirst()) { // L位置即将过期
+			if(L == minWindow.peekFirst()) { // L位置即将过期
 				minWindow.pollFirst();
 			}
 			while(!minWindow.isEmpty() && arr[minWindow.peekLast()] >= arr[R]) { // 加入一个右边的元素，扩大窗口
 				minWindow.pollLast();
 			}
 			minWindow.addLast(R);
-		}
+			R++;
+        }
 		return ans;
 	}
 }

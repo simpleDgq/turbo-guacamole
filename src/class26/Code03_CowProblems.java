@@ -1,6 +1,6 @@
 package class26;
 
-public class Code02_CowProblems {
+public class Code03_CowProblems {
 	/**
 	 * 奶牛生小牛问题
 		第一年农场有1只成熟的母牛A，往后的每年：

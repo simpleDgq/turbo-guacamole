@@ -134,7 +134,7 @@ public class Code01_QuickSort {
 			return;
 		}
 		// 随机选择一个数，和最后一个元素交换
-		swap(arr, (int) (Math.random() * (R - L + 1)), R);
+		swap(arr, L + (int) (Math.random() * (R - L + 1)), R); // 注意要加L, 因为右半部分递归的时候，保证只有右半部分的数组和最后元素交换
 		
 		int equals[] = partition2(arr, L, R);
 		porcess2(arr, L, equals[0] - 1);

@@ -5,7 +5,7 @@ public class Code01_Manacher {
 	 * Manacher算法
 	 * 求一个字符串中的最长回文子串长度
 	 */
-	
+	// 返回的是最长回文半径 ==> 最长回文子串长度 = 最长回文半径 * 2 - 1
 	public static int manacher(String str) {
 		if(str == null || str.length() == 0) {
 			return 0;

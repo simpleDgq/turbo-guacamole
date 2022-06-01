@@ -38,6 +38,7 @@ public class Code02_HeapSort {
 	}
 	
 	public static void heapInsert(int arr[], int index) {
+		// 来到0位置的时候，-1/2 = 0, 所以while也会退出
 		while(arr[index] > arr[(index - 1) / 2]) {
 			swap(arr, index, (index - 1) / 2);
 			index = (index - 1) / 2;

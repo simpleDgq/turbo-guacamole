@@ -62,6 +62,7 @@ public class Code01_Heap {
 		 * @param index
 		 */
 		public void heapInsert(int heap[], int index) {
+			// 来到0位置的时候，-1/2 = 0, 所以while也会退出
 			while(heap[index] > heap[(index - 1) / 2]) { // 如果当前节点的值大于父节点或者到达了根节点，交换，继续向上调整
 				swap(heap, index, (index-1) / 2);
 				index = (index-1) / 2;

@@ -26,6 +26,9 @@ public class Code01_FindMinKth {
 	
 	// arr[L..R]  范围上，如果排序的话(不是真的去排序)，找位于index的数
 	public static int process(int arr[], int L, int R, int index) {
+		if(L > R) {
+			return Integer.MIN_VALUE;
+		}
 		if(L == R) {
 			return arr[L];
 		}
@@ -39,7 +42,7 @@ public class Code01_FindMinKth {
 		} else if(index > equals[1]) { // 在大于区
 			ans = process(arr, equals[1] + 1, R, index);
 		} else {
-			ans = process(arr, 0, equals[0] - 1, index);
+			ans = process(arr, L, equals[0] - 1, index);
 		}
 		return ans;
 	}
@@ -74,6 +77,45 @@ public class Code01_FindMinKth {
 	}
 	
 	/**
+	 * 改写快排非递归写法
+	 */
+	// 时间复杂度O(N)
+	public static int minKth(int[] arr, int index) {
+		int L = 0;
+		int R = arr.length - 1;
+		int pivot = 0;
+		int[] range = null;
+		while (L < R) {
+			pivot = arr[L + (int) (Math.random() * (R - L + 1))];
+			range = partition(arr, L, R, pivot);
+			if (index < range[0]) {
+				R = range[0] - 1;
+			} else if (index > range[1]) {
+				L = range[1] + 1;
+			} else {
+				return pivot;
+			}
+		}
+		return arr[L];
+	}
+
+	public static int[] partition(int[] arr, int L, int R, int pivot) {
+		int less = L - 1;
+		int more = R + 1;
+		int cur = L;
+		while (cur < more) {
+			if (arr[cur] < pivot) {
+				swap(arr, ++less, cur++);
+			} else if (arr[cur] > pivot) {
+				swap(arr, cur, --more);
+			} else {
+				cur++;
+			}
+		}
+		return new int[] { less + 1, more - 1 };
+	}
+	
+	/**
 	 * bfprt算法
 	 * 1. 将arr中的数划分成五个数一组
 	 * 2. 将每个单独的数组，排好序
@@ -91,6 +133,9 @@ public class Code01_FindMinKth {
 	
 	// arr[L..R]  如果排序的话，位于index位置的数，是什么，返回
 	public static int bfprt(int arr[], int L, int R, int index) {
+		if(L > R) {
+			return Integer.MIN_VALUE;
+		}
 		if(L == R) {
 			return arr[L];
 		}
@@ -188,5 +233,32 @@ public class Code01_FindMinKth {
 		}
 		return maxHeap.peek();
 	}
+	
+	
+	// for test
+	public static int[] generateRandomArray(int maxSize, int maxValue) {
+		int[] arr = new int[(int) (Math.random() * maxSize) + 1];
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = (int) (Math.random() * (maxValue + 1));
+		}
+		return arr;
+	}
 
+	public static void main(String[] args) {
+		int testTime = 1000000;
+		int maxSize = 100;
+		int maxValue = 100;
+		System.out.println("test begin");
+		for (int i = 0; i < testTime; i++) {
+			int[] arr = generateRandomArray(maxSize, maxValue);
+			int k = (int) (Math.random() * arr.length) + 1;
+			int ans1 = minKth1(arr, k);
+			int ans2 = findMinKth1(arr, k);
+			int ans3 = findMinKth2(arr, k);
+			if (ans1 != ans2 || ans2 != ans3) {
+				System.out.println("Oops!");
+			}
+		}
+		System.out.println("test finish");
+	}
 }

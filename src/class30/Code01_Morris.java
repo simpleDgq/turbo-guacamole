@@ -32,6 +32,8 @@ public class Code01_Morris {
 		while(cur != null) {
 			mostRight = cur.left;
 			if(mostRight != null) {
+				// 找左树上的最右节点。mostRight.right == cur的时候，也是到达了左树的最右节点
+				// 因为人为改动过左树上的最右节点的指针，指向了cur
 				while(mostRight.right != null && mostRight.right != cur) {
 					mostRight = mostRight.right;
 				}

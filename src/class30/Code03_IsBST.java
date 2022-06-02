@@ -1,7 +1,5 @@
 package class30;
 
-import class30.Code01_MorrisTraversal.Node;
-
 public class Code03_IsBST {
 	
 	public static class Node {

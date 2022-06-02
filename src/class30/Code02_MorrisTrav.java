@@ -80,12 +80,14 @@ public class Code02_MorrisTrav {
 					cur = cur.left;
 					continue;
 				} else { // 有左树的节点，第二次来到的时候打印
-					System.out.print(cur.value + " ");
+//					System.out.print(cur.value + " ");
 					mostRight.right = null;
 				}
-			} else { // 当前节点没有左树，只会到达一次，直接打印
-				System.out.print(cur.value + " ");
-			}
+			} 
+//			else { // 当前节点没有左树，只会到达一次，直接打印
+//				System.out.print(cur.value + " ");
+//			}
+			System.out.print(cur.value + " "); // 上面注释掉的代码，可以简化成一句
 			cur = cur.right;
 		}
 		System.out.println();

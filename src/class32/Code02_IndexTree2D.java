@@ -53,6 +53,8 @@ public class Code02_IndexTree2D {
 			int add = value - nums[row][col];
 			// 记录matrix值
 			nums[row][col] = value;
+			// 一维的时候，是index每次都加上它最右边的1得到下一个受影响的位置
+			// 同理，二维的时候，就是，两个维度都要加最右边的1，得到所有受影响的位置
 			for(int i = row + 1; i <= N; i += i & (-i)) { // 0行和0列是不用的，所以从+1开始
 				for(int j = col + 1; j <= M; j += j & (-j)) {
 					tree[row][col] += add;
@@ -66,6 +68,8 @@ public class Code02_IndexTree2D {
 				return 0;
 			}
 			int sum = 0;
+			// 一维的时候，是加上，依次抹掉index最右边的1 得到的位置累加
+			// 同理，二维的时候，就是，两个维度都要抹掉最右边的1，得到所有位置累加
 			for(int i = row + 1; i > 0; i -= i & (-i)) { // 0行和0列是不用的，所以从+1开始
 				for(int j = col + 1; j > 0 ; j -= j & (-j)) {
 					sum += tree[row][col];

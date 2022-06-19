@@ -1,4 +1,4 @@
-package class33;
+package class38;
 
 public class Code03_MSumToN {
 	/**

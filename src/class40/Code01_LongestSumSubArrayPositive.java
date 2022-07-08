@@ -1,6 +1,6 @@
 package class40;
 
-public class LongestSumSubArrayPositive {
+public class Code01_LongestSumSubArrayPositive {
 
 	//正整数组子数组累加和等于K的最大长度
 	//(滑动窗口单调性)

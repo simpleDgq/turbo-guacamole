@@ -2,7 +2,7 @@ package class40;
 
 import java.util.HashMap;
 
-public class LongestSumSubArrayLength {
+public class Code02_LongestSumSubArrayLength {
 
 	/**
 	 * 整数数组子数组累加和等于K的最大长度

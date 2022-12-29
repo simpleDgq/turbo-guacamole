@@ -28,7 +28,7 @@ public class Code01_UnionFind {
 	
 	public class UnionFind<V> {
 		private HashMap<V, Node<V>> nodes; // 存储所有的节点，给定value，对应到一个Node，方便找father以及进行union
-		private HashMap<Node<V>, Node<V>> parents; // 存储每个节点的代表节点
+		private HashMap<Node<V>, Node<V>> parents; // 存储每个节点的父亲节点是谁
 		private HashMap<Node<V>, Integer> sizeMap; // 存储代表节点代表的集合的大小
 		
 		public UnionFind(List<V> values) { // 用户给定List
@@ -46,7 +46,7 @@ public class Code01_UnionFind {
 		// 找给定节点所在集合的代表节点, 并且将经过的所有节点，直接连接在代表节点下
 		public Node<V> findFather(Node<V> cur) {
 			Stack<Node<V>> stack = new Stack<Node<V>>();
-			while(cur != parents.get(cur)) {
+			while(cur != parents.get(cur)) { // cur的父亲节点不是自己。也就是没有到达集合的代表节点。并查集中集合的代表节点有个指针是指向自己的。
 				stack.add(cur);
 				cur = parents.get(cur);
 			}
@@ -72,7 +72,7 @@ public class Code01_UnionFind {
 				int sizeB = sizeMap.get(fatherB);
 				Node<V> big = sizeA > sizeB ? fatherA : fatherB;
 				Node<V> small = big == fatherA ? fatherB : fatherA;
-				parents.put(small, big);
+				parents.put(small, big); // 直接将小集合的代表节点挂在大集合上
 				sizeMap.put(big, sizeA + sizeB);
 				sizeMap.remove(small); // 小的并入了大的，所以要删除小的代表节点，集合的size
 			}

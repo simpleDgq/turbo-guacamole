@@ -126,7 +126,7 @@ public class Code01_QuickSort {
 		if(arr == null || arr.length < 2) {
 			return;
 		}
-		porcess2(arr, 0, arr.length - 1);
+		porcess3(arr, 0, arr.length - 1);
 	}
 	// arr[L~R]上进行排序
 	public static void porcess3(int arr[], int L, int R) {
@@ -137,8 +137,8 @@ public class Code01_QuickSort {
 		swap(arr, L + (int) (Math.random() * (R - L + 1)), R); // 注意要加L, 因为右半部分递归的时候，保证只有右半部分的数组和最后元素交换
 		
 		int equals[] = partition2(arr, L, R);
-		porcess2(arr, L, equals[0] - 1);
-		porcess2(arr, equals[1] + 1, R);
+		porcess3(arr, L, equals[0] - 1);
+		porcess3(arr, equals[1] + 1, R);
 	}
 	public static int[] partition3(int arr[], int L, int R) {
 		if(L > R) {

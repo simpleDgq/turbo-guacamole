@@ -36,7 +36,7 @@ public class Code01_ReverseList {
 		Node next = null;
 		while(head != null) {
 			next = head.next;
-			head.next = pre;
+			head.next = pre; // 第一个节点的next指向null
 			pre = head;
 			head = next;
 		}

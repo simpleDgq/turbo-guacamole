@@ -12,6 +12,8 @@ public class Code02_BubbleSort {
 	// 冒泡排序
 	/**
 	 *  思路： 两两相邻的元素进行比较，谁大谁往后。
+	 *  每一轮结束后都会搞定一个最大值，放在数组后面。
+	 *  
 	 *  0-N-1范围上：
 	 *  	0和1位置的数进行比较，谁大谁往后
 	 *  	1-2 位置的数进行比较，谁大谁往后
@@ -23,6 +25,8 @@ public class Code02_BubbleSort {
 	 *  ...
 	 *  0-1范围上：
 	 *    	0和1位置的数进行比较，谁大谁往后
+	 *    
+	 * 循环次数: 1 到 N - 1, 能取到N - 1
 	 * @param arr
 	 */
 	public static void bubbleSort(int arr[]) {
@@ -30,8 +34,8 @@ public class Code02_BubbleSort {
 			return;
 		}
 		int length = arr.length;
-		for(int i = 0; i < length - 1; i++) { // 控制总的循环次数
-			for(int j = 0; j < length - i - 1; j++) { // 两两相邻的元素进行比较
+		for(int i = 1; i <= length - 1; i++) { // 控制总的循环次数
+			for(int j = 0; j < length - i; j++) { // 两两相邻的元素进行比较
 				if(arr[j] > arr[j + 1]) {
 					swap(arr, j, j + 1);
 				}

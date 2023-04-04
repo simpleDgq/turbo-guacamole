@@ -16,6 +16,8 @@ public class Code01_SelectionSort {
 	 *  1-N-1 选择一个最小值与1位置交换
 	 *  ...
 	 *  N-2 - N-1 选择一个最小值与N-2位置进行交换
+	 *  
+	 *  循环次数: 0 到 N - 2, 可以取到N - 2
 	 * @param arr
 	 */
 	public static void selectionSort(int arr[]) {

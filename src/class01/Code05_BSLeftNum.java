@@ -11,6 +11,9 @@ public class Code05_BSLeftNum {
 	
 	/**
 	 * 有序数组中找到>=num的数，最左的位置
+	 * 
+	 * 思路：有一个变量t，从mid开始，如果mid位置的数大于等于2，t记录下来下标;
+	 * 继续在t的左边找还有没有大于等于2的数
 	 * @return
 	 */
 	public static int bsLeftNum(int arr[], int num) {

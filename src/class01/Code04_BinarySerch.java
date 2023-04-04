@@ -17,6 +17,8 @@ public class Code04_BinarySerch {
 	 * 每次比较mid位置的数和要查找的value，
 	 * 如果mid位置的数比value大，去数组左边找，R = mid - 1
 	 * 反之，去数组右边找， L = mid + 1
+	 * 
+	 * 时间复杂度: 有N个数，一次砍一半，总共需要砍了log⁡2N﻿ 次 ==> 时间复杂度logN
 	 * @param arr
 	 * @return
 	 */

@@ -10,7 +10,10 @@ public class Code06_BSRightNum {
 	}
 	
 	/**
-	 * 有序数组中找到<-num最右的位置
+	 * 有序数组中找到<=num最右的位置
+	 * 
+	 * 思路：有一个变量t，从mid开始，如果mid位置的数小于等于2，t记录下来下标;
+	 * 继续在t的右边找还有没有小于等于2的数
 	 * @param arr
 	 * @param num
 	 * @return

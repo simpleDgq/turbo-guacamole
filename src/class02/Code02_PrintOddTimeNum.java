@@ -1,6 +1,6 @@
 package class02;
 
-public class Code01_PrintOddTimeNum {
+public class Code02_PrintOddTimeNum {
 	
 	public static void main(String[] args) {
 //		int arr[] = {1, 3, 3, 3, 1 , 5, 5, 6, 6};
@@ -34,11 +34,11 @@ public class Code01_PrintOddTimeNum {
 	 * 
 	 * 思路: 假设数组中出现奇数次的数是a和b
 	 * 1. 搞个eor异或上数组中所有的数，那么最终的结果一定是a^b
-	 * 2. a^b一定不等于0（因为a和b都出现了奇数次），那么a^b的结果一定有以为是1。
+	 * 2. a^b一定不等于0（因为a和b都出现了奇数次），那么a^b的结果一定有一位是1。
 	 * 3. 假设a^b的第3位是1，那么说明a和b的第3位一定是不一样的，那么将数组中的数可以分为两类：第3位是1的和第3位不是1的。
 	 *  ==> a 和 b一定落在不同的区间，假设a落在第3位是1的区间，b落在第3位是0的区间，其它的数也一定会落在不同的区间。
-	 * 4. 搞个eor', 异或上第三位是1的所有的数，就能得到a，其它的数出现偶数次，异或之后一定是0。
-	 * 5. eor ^ eor' 得到b
+	 * 4. 搞个eor2, 异或上第3位是1的所有的数，就能得到a，其它的数出现偶数次，异或之后一定是0。
+	 * 5. eor ^ eor2 得到b
 	 */
 	public static void printOddNum2(int arr[]) {
 		if(arr == null || arr.length == 0) {

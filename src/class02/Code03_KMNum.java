@@ -1,6 +1,6 @@
 package class02;
 
-public class Code02_KMNum {
+public class Code03_KMNum {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -13,6 +13,9 @@ public class Code02_KMNum {
 	 * 要求：额外空间复杂度O(1)，时间复杂度O(N).
 	 * 
 	 * 思路:
+	 * 假设a,b,c三个数分别出现了7次，d出现了3次
+	 * 如果t[0] 不是7的整数倍，那么说明d的第0位一定是1，反之，如果t[0]是7的整数倍，那么说明d的第0位一定是0。
+	 * 
 	 * 1. 一个整数可以用32位表示，定义一个t[32] ==> 记录的是第i位是1的数的个数。
 	 * 2. 遍历数组中的每一个数，对当前数的每一位进行处理，如果是1，就加到对应的t[i]中
 	 * 3. 如果t[i]不是M的整数倍，说明出现K次的数的第i位一定是1，使用或运算，将该位并入到最终的结果中。

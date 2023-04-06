@@ -64,7 +64,7 @@ public class Code06_TwoStackImplementsQueue {
 		}
 		
 		private void pushToPop() {
-			if(popStack.isEmpty()) { // 只有pop栈位kong的时候，才能倒数据
+			if(popStack.isEmpty()) { // 只有pop栈为空的时候，才能倒数据
 				while(!pushStack.isEmpty()) { // 将push栈的所有数据倒入pop中
 					popStack.push(pushStack.pop());
 				}

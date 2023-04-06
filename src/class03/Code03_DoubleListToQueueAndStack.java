@@ -1,5 +1,13 @@
 package class03;
 
+// 双向链表实现栈和队列
+/**
+ * 有个双端队列的类，实现了头、尾添加删除元素的4个方法
+ * 
+ * 实现队列: 只用头的取出，尾部添加的2个方法
+ * 实现栈: 只用头的添加、头部取出的2个方法
+ *
+ */
 public class Code03_DoubleListToQueueAndStack {
 
 	public static void main(String[] args) {
@@ -18,6 +26,7 @@ public class Code03_DoubleListToQueueAndStack {
 		}
 	}
 	
+	// 双向队列
 	public static class DoubleEndsQueue {
 		DoubleNode head = null;
 		DoubleNode tail = null;
@@ -89,12 +98,12 @@ public class Code03_DoubleListToQueueAndStack {
 			queue = new DoubleEndsQueue();
 		}
 		
-		// 添加元素
+		// 头部添加元素
 		public void push(DoubleNode node) {
 			queue.addFromTail(node);
 		}
 		
-		// 取元素
+		// 尾部取元素
 		public DoubleNode poll() {
 			return queue.popFromHead();
 		}
@@ -111,14 +120,14 @@ public class Code03_DoubleListToQueueAndStack {
 		public MyStack() {
 			queue = new DoubleEndsQueue();
 		}
-		// 添加元素
+		// 头部添加元素
 		public void push(DoubleNode node) {
 			queue.addFromHead(node);
 		}
 		
-		// 取元素
+		// 头部取元素
 		public DoubleNode poll() {
-			return queue.popFromTail();
+			return queue.popFromHead();
 		}
 		
 		// 判断是否为空

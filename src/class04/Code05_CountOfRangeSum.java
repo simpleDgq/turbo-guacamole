@@ -8,11 +8,15 @@ public class Code05_CountOfRangeSum {
 	}
 	
 	/**
+	 * 区间和的个数
+	 * 
 	 * 难题：给定一个数组arr，两个整数lower和upper，返回arr中有多少个子数组的累加和在
 	 * [lower, upper]范围上
-	 * Leetcode题目：https://leetcode.com/problems/count-of-range-sum/
+	 * Leetcode题目：https://leetcode.cn/problems/count-of-range-sum/
 	 * 
-	 * 思路: 对于
+	 * 子数组问题: 求以某个位置结尾的数组，有多少个满足条件的。
+	 * 
+	 * 思路:
 	 * 1. 对于数组中的每一个数，求以当前数结尾的子数组有多少个满足条件的，然后将所有的个数累加起来，就能得到最终的结果。
 	 *  假设数组[2, 3, 4], 以2结尾的子数组有a个满足条件，以3结尾的子数组有b个满足条件，以4结尾的子数组有c个满足条件。
 	 *  则a+b+c就是最终的结果。
@@ -22,12 +26,18 @@ public class Code05_CountOfRangeSum {
 	 * 例如假设0-5的前缀和是70，落在了[60,90]这个范围上，那么6-17 一定是落在[10, 40]这个范围上的，则6-17是一个满足条件的子数组。
 	 * 3. 问题最终转换成: 对于前缀和数组中的每一个数num，看它的左边有多少个数是落在[num-up, num-lo]上的。
 	 * 4. merge过程中，对于右组的每一个数，判断左组有多少个是满足条件的。
-	 * (左边0-0的时候，考虑的是1-17是否满足条件
-	 *  左边0-1的时候，考虑的是2-17是否满足条件
-	 *  ..
-	 *  需要注意的是：merge过程中没有机会考虑0-17的情况，所以需要在base case中进行考虑。
-	 *  也就是：L==R 的时候，判断sum[L] 是否落在[lower, upper]上。
-	 * )
+	 * 
+	 * 以17结尾的时候:
+	 *   左边是0-0的时候，考虑的是1-17子数组是否满足条件
+	 *   左边是0-1的时候，考虑的是2-17子数组是否满足条件
+	 *   ...
+	 *   左边是0-16的时候，考虑的是17-17子数组是否满足条件
+	 *  
+	 *   需要注意的是：merge的时候，左组一定是有数的，没有考虑左组没有数的情况，
+	 *   也就是以17结尾的时候，没有考虑0-17这种子数组是否满足条件. 0-17这种子数组，左组就没有数。
+	 *  
+	 *   所以需要在base case中进行考虑。
+	 *   也就是：L==R 的时候，判断sum[L] 是否落在[lower, upper]上。
 	 * 
 	 */
 	
@@ -56,6 +66,19 @@ public class Code05_CountOfRangeSum {
 				merge(preSum, L, M, R, low, up);
 	}
 	
+	/**
+	 * 求左组有多少个满足条件的数，左组有两个指针windowL和windowR
+	 * windowL向右滑，滑到>= min 的第一个位置
+	 * windowR也想右滑。滑到> max的第一个数的位置
+	 * windowR-windowL得到在[min, max]的数的个数。
+	 * @param preSum
+	 * @param L
+	 * @param M
+	 * @param R
+	 * @param low
+	 * @param up
+	 * @return
+	 */
 	public static int merge(long preSum[], int L, int M, int R, int low, int up) {
 		// 计算对于右组中的每一个数num，左组中有多少个是落在[num - up, num - low]上的
 		int windowL = L;
@@ -67,7 +90,7 @@ public class Code05_CountOfRangeSum {
 			while(windowL <= M && preSum[windowL] < min) { // windowL向右滑动, 找到大于等于min的第一个数
 				windowL++;
 			}
-			while(windowR <= M && preSum[windowR] <= max) { // windowR向右滑动, 找到大于max的第一个数(容易写错)
+			while(windowR <= M && preSum[windowR] <= max) { // windowR向右滑动, 找到大于max的第一个数(<= max，这容易写错)
 				windowR++;
 			}
 			ans += windowR - windowL; // [windowL, windowR) 

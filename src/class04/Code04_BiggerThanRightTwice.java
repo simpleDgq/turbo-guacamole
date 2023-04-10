@@ -11,6 +11,10 @@ public class Code04_BiggerThanRightTwice {
 	 *	 在merge之前，对于左组的每一个数，判断右组有多少个*2之后小于当前左组数。
 	 *	 算出来之后，在进行merge。
 	 * Trick:将计算满足条件的数，放在了merge之前。
+	 * 
+	 * 左组的数小于右组的数*2，说明对于L指向的位置，右边没有满足条件的数，L向后滑动，看下一个数
+	 * 左组的数等于右组的数*2，L向后滑动（与小于同理）
+	 * 左组的数大于右组的数*2，R向后滑动，滑动到不能滑动了，求R - mid - 1，
 	 */
 	
 	public static int biggerThanRightTwice(int arr[]) {
@@ -43,7 +47,6 @@ public class Code04_BiggerThanRightTwice {
 			}
 			ans += windowR - M - 1; // windowR不回退，当前windowR指向的元素满足条件，
 			                        //那么它之前得也一定满足，windowR - M - 1已经算上了前面的数了
-			
 		}
 		
 		// 去merge吧

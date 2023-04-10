@@ -24,6 +24,13 @@ public class Code02_SmallSum {
 		return process(arr, 0, arr.length - 1);
 	}
 	
+	/**
+	 * 计算左部分小和，计算右部分小和，左右部分合并的时候的小和。三者累加。
+	 * @param arr
+	 * @param L
+	 * @param R
+	 * @return
+	 */
 	public static int process(int arr[], int L, int R) {
 		if(L == R) {
 			return 0;
@@ -45,7 +52,7 @@ public class Code02_SmallSum {
 		int ans = 0;
 		while(p1 <= M && p2 <= R) {
 			if(arr[p1] < arr[p2]) {
-				ans += arr[p1] * (R - p2 + 1); // 左组比右组小，产生小和
+				ans += arr[p1] * (R - p2 + 1); // 左组比右组小，产生小和 。 右组中p2 及其往后的位置的数，都比arr[p1]大，因为合并的时候，左右两部分都是已经排好序的。
 				helper[i++] = arr[p1++];
 			} else { // 左组大于等于右组，不产生小和。因为要求的是右边有多少个数比当前数大
 				helper[i++] = arr[p2++];

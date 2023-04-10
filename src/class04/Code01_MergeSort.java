@@ -7,8 +7,8 @@ public class Code01_MergeSort {
 	 * 归并排序，递归实现。
 	 * 思路:
 	 * 1. 求中点M 。 base case: L==R ，直接return
-	 * 2.f(arr,L,M)保证L - M 有序
-	 * 3.f(arr,M + 1, R)保证M+1 - R 有序
+	 * 2. f(arr,L,M)保证L - M 有序
+	 * 3. f(arr,M + 1, R)保证M+1 - R 有序
 	 * 4. 合并两边有序的数组
 	 *   1）准备一个辅助数组，合并的时候，有两个指针分别指向左右两个数组元素，比较两个元素，谁小则将
 	 *   谁拷贝到辅助数组中，指针向下移动; （等于的时候拷贝谁都可以）
@@ -22,13 +22,13 @@ public class Code01_MergeSort {
 		process(arr, 0, arr.length - 1);
 	}
 	public static void process(int arr[], int L, int R) {
-		if(L == R) { // Base Case: 只有一个元素，直接返回 (重点：写代码的时候容易错)
+		if(L == R) { // Base Case: 只有一个元素，不用排序了，直接返回 (重点：写代码的时候容易错)
 			return;
 		}
 		int mid = L + ( (R - L) >> 1);
-		// 左边有序
+		// 保证左边有序
 		process(arr, L, mid);
-		// 右边有序
+		// 保证右边有序
 		process(arr, mid + 1, R);
 		// merge
 		merge(arr, L, mid, R);
@@ -59,9 +59,9 @@ public class Code01_MergeSort {
 		while(p2 <= R) { // 右组还有元素
 			helper[i++] = arr[p2++];
 		}
-		// 将最终结果拷贝到arr中
+		// 将最终结果拷贝到arr中。因为最终要返回的是排好序的arr
 		for(int j = 0; j <= helper.length - 1; j++) {
-			arr[L + j] = helper[j]; // 注意这里是L + j (重点：写代码的时候容易错)
+			arr[L + j] = helper[j]; // 注意这里是L + j (重点：写代码的时候容易错) 。每次的arr都是从L开始的。
 		}
 	}
 	

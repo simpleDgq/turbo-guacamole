@@ -52,7 +52,7 @@ public class Code07_TwoQueueImplementsStack {
 	 * 1. 准备两个队列，A和B
 	 * 2. 加数据的时候,往A加
 	 * 3. pop取数据的时候，留着A的最后一个元素，其它元素入B，弹出A的最后一个元素
-	 * A和B角色互换（peek的时候不需要互换角色）。
+	 * A和B角色互换（peek的时候不需要互换角色, 因为peek没有弹出元素）。
 	 */
 	
 	public static class TwoQueueToStack {

@@ -15,6 +15,7 @@ public class Code04_SortArrayDistanceLessK {
 	 * 数放完了，从堆中取出剩下的数。就拍好序了
 	 * 
 	 * 时间复杂度: 堆中元素个数不超过K+1个，所以时间复杂度是O(N*logK)
+	 * 
 	 */
 	
 	public static void sortArrayDistanceLessK(int arr[], int  K) {

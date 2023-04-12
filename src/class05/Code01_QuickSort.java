@@ -15,6 +15,8 @@ public class Code01_QuickSort {
 	 * 
 	 * 排序思路:
 	 * 划分一次，得到了小于等于区的最后一个元素X的位置，X位置就确定好了，递归去求X的左边和X的右边。
+	 * 
+	 * 时间复杂度: O(N^2)
 	 */
 	public static void quickSort1(int arr[]) {
 		if(arr == null || arr.length < 2) {
@@ -28,8 +30,11 @@ public class Code01_QuickSort {
 		if(L >= R) { // 只有一个数，不用划分递归求了，直接返回
 			return;
 		}
+		// 划分
 		int lessEqual = partition(arr, L, R);
+		// 搞左边
 		process(arr, L, lessEqual - 1);
+		// 搞右边
 		process(arr, lessEqual + 1, R);
 	}
 	
@@ -64,7 +69,7 @@ public class Code01_QuickSort {
 	 *  < X的放左边，=X的放中间，> X的放右边
 	 *  
 	 * 划分思路：用数组的最后一个元素作为划分值
-	 * 有一个小于区，从-1位置开始，有一个大于去从arr.length-1开始，将最后一个元素扩在大于区。后面和大于区的第一个数交换，
+	 * 有一个小于区，从-1位置开始，有一个大于区从arr.length-1开始，将最后一个元素扩在大于区。后面和大于区的第一个数交换，
 	 * 就将数组的最后一个数X放进了等于区。
 	 * 1. 如果当前元素小于划分值，则当前元素和小于区的下一个元素进行交换，当前元素跳下一个
 	 * 2. 如果当前元素等于划分值，当前元素直接调下一个。
@@ -74,7 +79,7 @@ public class Code01_QuickSort {
 	 * 
 	 * 排序思路：递归去求，等于区的左边和右边，每次递归搞定一个等于区的数。
 	 * 
-	 * O(N^2)
+	 * 时间复杂度: O(N^2)
 	 */
 	public static void quickSort2(int arr[]) {
 		if(arr == null || arr.length < 2) {
@@ -87,8 +92,11 @@ public class Code01_QuickSort {
 		if(L >= R) {
 			return;
 		}
+		// 划分
 		int equals[] = partition2(arr, L, R);
+		// 搞左边
 		porcess2(arr, L, equals[0] - 1);
+		// 搞右边
 		porcess2(arr, equals[1] + 1, R);
 	}
 	public static int[] partition2(int arr[], int L, int R) {
@@ -98,20 +106,20 @@ public class Code01_QuickSort {
 		if(L == R) {
 			return new int[] {L, L};
 		}
-		int less = L - 1; // 注意
-		int more = R;
+		int less = L - 1; // 注意，从-1位置开始，每次新的L，都要减1
+		int more = R; // 大于区包含最后一个元素
 		int index = L;
 		while(index < more) { //注意 不能和大于区的左边界撞上 
 			if(arr[index] < arr[R]) {
-				swap(arr, index++, ++less); // 当前元素和小于于区的下一个元素交换，小于去右扩，当前元素跳下一个
+				swap(arr, index++, ++less); // 当前元素和小于于区的下一个元素交换，小于区右扩，当前元素跳下一个
 			} else if(arr[index] > arr[R]) {
-				swap(arr, index, --more); // 当前元素和大于区的前一个元素交换，大于去左扩，当前元素不跳
+				swap(arr, index, --more); // 当前元素和大于区的前一个元素交换，大于区左扩，当前元素不跳
 			} else { // 相等，直接跳下一个
 				index++;
 			}
 		}
-		swap(arr, more, R); // 最后一个元素和大于去的第一个元素交换
-		return new int[] {less + 1, more};
+		swap(arr, more, R); // 最后一个元素和大于区的第一个元素交换
+		return new int[] {less + 1, more}; // 返回等于区的范围
 	}
 	
 	
@@ -121,6 +129,8 @@ public class Code01_QuickSort {
 	 * 在快排2.0的基础上，随机选择一个元素，和数组的最后一个元素交换，作为划分值
 	 * 
 	 * 时间复杂度收敛到N*logN
+	 * 
+	 * 空间复杂度，
 	 */
 	public static void quickSort3(int arr[]) {
 		if(arr == null || arr.length < 2) {
@@ -135,9 +145,11 @@ public class Code01_QuickSort {
 		}
 		// 随机选择一个数，和最后一个元素交换
 		swap(arr, L + (int) (Math.random() * (R - L + 1)), R); // 注意要加L, 因为右半部分递归的时候，保证只有右半部分的数组和最后元素交换
-		
-		int equals[] = partition2(arr, L, R);
+		// 划分
+		int equals[] = partition3(arr, L, R);
+		// 左
 		porcess3(arr, L, equals[0] - 1);
+		// 右
 		porcess3(arr, equals[1] + 1, R);
 	}
 	public static int[] partition3(int arr[], int L, int R) {

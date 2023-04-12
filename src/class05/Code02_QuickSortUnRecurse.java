@@ -41,9 +41,10 @@ public class Code02_QuickSortUnRecurse {
 			OP op = stack.pop();
 			// 如果L >= R, 只有一个元素或者越界，直接return
 			if(op.l < op.r) { // L>=R 直接return
-				// 产生新的子任务，加入栈
+				// 划分
 				swap(arr, op.l + (int)(Math.random() * (op.r - op.l + 1)), op.r);
 				equals = partition(arr, op.l, op.r);
+				// 一次划分，产生新的子任务，加入栈
 				stack.push(new OP(op.l, equals[0] - 1));
 				stack.push(new OP(equals[1] + 1, op.r));
 			}
@@ -80,7 +81,10 @@ public class Code02_QuickSortUnRecurse {
 		arr[j] = temp;
 	}
 	
-	// 快排3.0 非递归版本 用队列来执行
+	/**
+	 *  2. 快排3.0 非递归版本 用队列来实现
+	 * @param arr
+	 */
 	public static void quickSort3(int[] arr) {
 		if (arr == null || arr.length < 2) {
 			return;

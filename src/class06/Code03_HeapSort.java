@@ -1,6 +1,6 @@
 package class06;
 
-public class Code02_HeapSort {
+public class Code03_HeapSort {
 	/**
 	 * 堆排序
 	 * 
@@ -16,6 +16,10 @@ public class Code02_HeapSort {
 	 * 第二层的节点....,依次类推，树的构造过程是从上往下的。
 	 * 从下往上，是假设整棵树都有了，然后从最后一层进行heapify，
 	 * 然后是倒数第二层... 依次类推，树的构造过程是从下往上的。
+	 * 
+	 * 时间复杂度: O(N*logN)
+	 * 
+	 * 空间复杂度: O(1) 有限的变量，没有开辟新的空间。
 	 */
 	
 	public static void heapSort(int arr[]) {
@@ -35,7 +39,8 @@ public class Code02_HeapSort {
 		int heapSize = arr.length;
 		
 		// 建大根堆，从数组最后一个元素开始，假设数组已经是二叉树了，从下往上, 下沉调整成堆就行
-		// 每个元素都向下调整，比较两次，每一层比较的次数是，等比数列，时间复杂度收敛到O(N)
+		// 每个元素都向下调整，比较两次，每一层比较的次数是等比数列，时间复杂度收敛到O(N)
+		// 数据一股脑的全部给到的时候，就可以用这种方式，优化由上到下建堆的堆排序
 		for(int i = arr.length - 1; i >= 0; i--) {
 			heapIfy(arr, i, heapSize);
 		}

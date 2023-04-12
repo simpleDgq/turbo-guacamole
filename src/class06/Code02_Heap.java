@@ -1,6 +1,6 @@
 package class06;
 
-public class Code01_Heap {
+public class Code02_Heap {
 	/**
 	 * 使用数组实现堆。
 	 * 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 
-public class Code02_HeapGreater {
+public class Code03_HeapGreater {
 	/**
 	 * 手动改写堆
 	 * 1. 任意修改一个位置的元素，能够自动调整堆

@@ -2,7 +2,7 @@ package class10;
 
 import java.util.Stack;
 
-public class Code01_UnRecursiveTraveraiBT {
+public class Code02_UnRecursiveTraveraiBT {
 	
 	/**
 	 * 非递归实现二叉树的先序、中序、后序遍历

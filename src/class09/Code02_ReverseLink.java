@@ -6,7 +6,7 @@ public class Code02_ReverseLink {
 	/**
 	 * 有一个链表L1， L2，L3，L4，R1，R2，R3，R4 变成L1 R4 L2 R3 L3 R2 L4 R1
 	 * 思路：
-	 * 1. 求中点
+	 * 1. 求上中点
 	 * 2. 将中点之后的链表逆序
 	 * 3. 左右依次遍历链表，进行链接
 	 */
@@ -23,14 +23,14 @@ public class Code02_ReverseLink {
 		if(head == null || head.next == null) {
 			return head;
 		}
-		// 求中点
+		// 求上中点
 		Node slow = head;
 		Node fast = head;
 		while(fast.next != null && fast.next.next != null) { // 求上中点
 			slow = slow.next;
 			fast = fast.next.next;
 		}
-		// 翻转，以4个节点位例子
+		// 右边部分翻转，以4个节点为例子
 		Node pre = slow;
 		Node cur = slow.next; // 中点的下一个节点，也就是右边部分链表的第一个节点
 		slow.next = null; // 将slow的next指向空

@@ -66,7 +66,7 @@ public class Code02_IsPalindromeList {
 			}
 		}
 		
-		// 从后往前，恢复链表 (注意这部分)
+		// 从后往前，恢复链表 (注意这部分) --> 三个指针
 		Node n1 = null; // pre
 		Node n2 = pre; // cur
 		Node n3 = null; // next

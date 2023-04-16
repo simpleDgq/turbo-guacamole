@@ -9,26 +9,26 @@ public class Code05_FindFirstIntersectNode {
 	 * 
 	 * 思路：
 	 * 1. 上来先判断两个链表是不是有环的，没有环返回null，有环返回入环第一个节点
-	 * 	  1）快慢指针。快指针一次走两步，慢指针一次走一步，如果快指针能够到达null，说明改链表无环，直接返回
-	 * 	  2）有环的情况下，当快慢指针第一次相遇的时候，将快指针回到头结点，而且变成一次也只走一步，当快慢指针再一次相遇的时候，
+	 * 	  1) 快慢指针。快指针一次走两步，慢指针一次走一步，如果快指针能够到达null，说明该链表无环，直接返回
+	 * 	  2) 有环的情况下，当快慢指针第一次相遇的时候，将快指针回到头结点，而且变成一次也只走一步，当快慢指针再一次相遇的时候，
 	 *       所指向的节点一定是第一个入环节点，直接返回。
 	 * 2. 两个链表有环和无环的情况，可以分为3种：
-	 * 	  1）两个链表都无环 ==> 如果相交，那么他们的最后一个节点一定是一样的。
-	 * 		遍历两个链表，同时计算链表的长度，比较最后一个节点是不是一样，如果不是一样，说明不想交，返回null；
-	 * 		如果是一样，说明相交，则长链表先走长度的差值步，然后短链表一起走，当长短链表相遇的时候，就是相交节点。
-	 *    2）一个有环，一个无环 ==> 一定不能相交，直接返回null
+	 * 	  1) 两个链表都无环 ==> 如果相交，那么他们的最后一个节点一定是一样的。
+	 * 		 遍历两个链表，同时计算链表的长度，比较最后一个节点是不是一样，如果不是一样，说明不相交，返回null;
+	 * 		 如果是一样，说明相交，则长链表先走长度的差值步，然后短链表一起走，当长短链表相遇的时候，就是相交节点。
+	 *    2) 一个有环，一个无环 ==> 一定不能相交，直接返回null
 	 *    3) 两个链表都有环，又可以分为3中情况
-	 *        1）都有环，但是不相交
-	 *        2）入环节点是一样 ==> 两个链表的入环节点 loop1 == loop2, 求相交节点的方法和两个链表都无环的方法一样，走到loop1就行
-	 *        3）入环节点不一样
-	 * ==> 1)和3) ==> 从loop1开始走，在回到loop1之前，如果能遇到loop2说明是情况3)，是相交的，返回loop1或者loop2都行；如果遇不到loop2，说明不想交
-	 *        返回null
+	 *        1) 都有环，但是不相交
+	 *        2) 入环节点是一样 ==> 两个链表的入环节点 loop1 == loop2, 求相交节点的方法和两个链表都无环的方法一样，走到loop1就行
+	 *        3) 入环节点不一样
+	 * ==> 1)和3)这两种情况 ==> 从loop1开始走，在回到loop1之前，如果能遇到loop2说明是情况3)，是相交的，返回loop1或者loop2都行；
+	 * 	   如果遇不到loop2，说明不相交,返回null
 	 */
 	public static Node getFirstIntersectNode(Node head1, Node head2) {
 		if(head1 == null || head2 == null) {
 			return null;
 		}
-		//判断是否都有环
+		//判断是否都有环, 如果有，返回入环节点
 		Node loop1 = getLoopNode(head1);
 		Node loop2 = getLoopNode(head2);
 		// 如果都没有环
@@ -59,9 +59,12 @@ public class Code05_FindFirstIntersectNode {
 		if(head == null || head.next == null || head.next.next == null) {
 			return null;
 		}
+		// 快慢指针先走一下
 		Node fast = head.next.next;
 		Node slow = head.next;
-		while(fast != slow) { // 找到第一次相遇的节点
+		// 找到第一次相遇的节点
+		while(fast != slow) {
+			// fast能走到null, 说明一定没有环
 			if(fast.next == null || fast.next.next == null) {
 				return null;
 			}
@@ -116,7 +119,7 @@ public class Code05_FindFirstIntersectNode {
 	
 	/**
 	 * 两个链表都有环，求相交节点
-	 * 分为两种情况，入环节点是同一个节点，入环节点不是同一个节点。
+	 * 分为两种情况: 入环节点是同一个节点，入环节点不是同一个节点。
 	 */
 	public static Node bothLoop(Node head1, Node head2, Node loop1, Node loop2) { 
 		if(head1 == null || head2 == null || loop1 == null || loop2 == null) {
@@ -158,11 +161,12 @@ public class Code05_FindFirstIntersectNode {
 			Node res = null;
 			while(end1 != loop1) { // loop1 一直走，如果再次到达loop1之前，碰到loop2，说明相交，碰不到说明不相交
 				if(end1 == loop2) {
-					res = loop1;
+					res = loop1; // 碰到了loop2, 返回loop1或者loop2都行
 					break;
 				}
 				end1 = end1.next;
 			}
+			// 如果loop1一直走，没有碰到loop2，说明两个有环链表不想交，是第1)种情况，直接返回null
 			return res;
 		}
 	}

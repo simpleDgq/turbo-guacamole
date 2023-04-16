@@ -7,7 +7,7 @@ public class Code02_ReverseLink {
 	 * 有一个链表L1， L2，L3，L4，R1，R2，R3，R4 变成L1 R4 L2 R3 L3 R2 L4 R1
 	 * 思路：
 	 * 1. 求上中点
-	 * 2. 将中点之后的链表逆序
+	 * 2. 将上中点之后的链表逆序
 	 * 3. 左右依次遍历链表，进行链接
 	 */
 	public static class Node {

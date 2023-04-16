@@ -1,5 +1,6 @@
 package class09;
 
+// 回文串扩展题
 public class Code02_ReverseLink {
 	
 	/**

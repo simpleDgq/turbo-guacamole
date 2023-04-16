@@ -4,11 +4,15 @@ public class Code02_IsPalindromeList {
 
 	/**
 	 * 给定一个单链表的头结点head，判断该链表是否为回文结构
-	 * 思路：
-	 * 1. 快慢指针找到中点
+	 * 
+	 * 思路 1: 将所有的链表元素放入栈，出栈和链表重新遍历进行对比（笔试用）
+	 * 
+	 * 思路 2：面试用
+	 * 1. 快慢指针找到上中点
 	 * 2. 将中点之后的链表进行翻转
-	 * 3. 左右链表，分别遍历，判断是否相等
+	 * 3. 左右链表, 再搞两个指针L和R分别指向开始和最后, 分别遍历, 判断是否相等
 	 * 4. 恢复原链表
+	 * 
 	 */
 	public static class Node {
 		int value;
@@ -31,7 +35,8 @@ public class Code02_IsPalindromeList {
 			fast = fast.next.next;
 			slow = slow.next;
 		}
-		// 将左边部分的元素进行翻转（注意这部分）
+		
+		// 将右边部分的元素进行翻转（注意这部分）
 		// 翻转链表两个变量，pre和next
 		Node pre = slow;
 		Node cur = slow.next; // 右边部分第一个节点

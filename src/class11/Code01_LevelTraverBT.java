@@ -6,11 +6,15 @@ import java.util.Queue;
 public class Code01_LevelTraverBT {
 
 	/**
-	 * 二叉树的层次遍历
+	 * 二叉树的层次遍历 - 使用队列实现
+	 * 
+	 * Java中队列可以使用LinkedList
+	 * 头结点先入队，在出队的时候，先判断有没有左孩子，有就入队，再判断有没有右孩子，有就入队。
+	 * 
 	 * 思路：
 	 * 1. 使用队列，头结点入队
 	 * 2. 队列不为空，头结点出队列，有左入左，有右入右。
-	 * 3. 知道队列为空。
+	 * 3. 直到队列为空。
 	 */
 	
 	public static class Node {

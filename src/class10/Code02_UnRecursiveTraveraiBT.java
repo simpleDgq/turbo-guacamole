@@ -61,6 +61,7 @@ public class Code02_UnRecursiveTraveraiBT {
 		while(!stack.isEmpty()) {
 			Node cur = stack.pop();// 头出栈
 			stack2.push(cur); // 不打印，而是以头右左的顺序进栈stack2，出栈的时候就是左右头
+			// 左先入，右后入，出栈的时候，右先出，左后出，就能得到头右左的顺序，加入stack2
 			if(cur.left != null) { // 左子树先入栈
 				stack.push(cur.left);
 			}
@@ -68,7 +69,7 @@ public class Code02_UnRecursiveTraveraiBT {
 				stack.push(cur.right);
 			}
 		}
-		// 出栈
+		// 出栈，依次出，得到左右头的顺序，因为存放的时候是头右左的顺序
 		while(!stack2.isEmpty()) {
 			System.out.println(stack2.pop().value);
 		}

@@ -101,7 +101,7 @@ public class Code02_SerializeAndReconstructTree {
 			return null;
 		}
 		Stack<Integer> stack = new Stack<Integer>();
-		// 左右中 ==> 中右左
+		// ans中存放的是左右头顺序 ==> 加到栈中，弹出的时候是头右左顺序，这样就能方便的先建立头节点，然后递归建立右、左子树
 		while(!ans.isEmpty()) {
 			stack.add(ans.poll());
 		}
@@ -112,8 +112,11 @@ public class Code02_SerializeAndReconstructTree {
 		if(value == null) {
 			return null;
 		}
+		// 建立头
 		Node head = new Node(value);
+		// 递归建立右子树
 		head.right = buildByPos(stack);
+		// 递归建立左子树
 		head.left = buildByPos(stack);
 		return head;
 	}
@@ -154,6 +157,7 @@ public class Code02_SerializeAndReconstructTree {
 		}
 		return ans;
 	}
+	
 	// 反序列化
 	public static Node buildByLevelQueue(Queue<Integer> ans) {
 		if(ans == null || ans.isEmpty()) {

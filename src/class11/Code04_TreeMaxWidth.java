@@ -7,13 +7,16 @@ public class Code04_TreeMaxWidth {
 	
 	/**
 	 * 求一个二叉树的最大宽度
-	 * 思路：
-	 * curend 和 nextend 分别记录当前层的最后一个节点和下一层的最后一个节点。
-	 * count 记录每一层的节点数
+	 * 思路：三个变量
+	 * curend: 记录当前层的最后一个节点
+	 * nextend: 下一层的最后一个节点。
+	 * count: 记录每一层的节点数
+	 * 
 	 * 1. 头结点入队，curend设置成头结点，nextend设置成null
 	 * 2. 在层次遍历的过程中，头结点出队，有左入左，有右入右，入队的过程中将nextend指向下一层的最后一个节点
 	 * 出队的时候，count++， 记录当前层的节点数
-	 * 如果到达了当前层的最后一个节点，则将curend 设置成 nextend，nextend变为null
+	 * 如果curend == node, 说明到达了当前层的最后一个节点，则将curend设置成 nextend，nextend变为null，max和count PK
+	 * 出最大值
 	 */
 	
 	public static class Node {

@@ -5,6 +5,8 @@ import java.util.Queue;
 
 public class Code01_IsCBT {
 	/**
+	 * Complete Binary Tree
+	 * 
 	 * 判断一颗二叉树是不是完全二叉树
 	 * 定义：1. 每一层都是满的
 	 * 		2. 如果有不满的层。一定是最后一层，而且节点都是从左往右按顺序排列的
@@ -54,7 +56,8 @@ public class Code01_IsCBT {
 			}
 			if(node.left == null || node.right == null) { // 第一次遇到左右节点不双全的节点， 判断它后面的节点是不是都是叶子节点
 				firstNoLeftOrRight = true; // 这个判断放到最后才正确. 
-				//因为当遇到一个左或者右节点不为空的节点之后，需要判断的是该节点的后面一个节点，是否是叶子节点。 下一个出队列的就是需要判断的节点。
+				// 因为当遇到一个左或者右节点不为空的节点之后，需要从该节点的后面一个节点开始判断，剩下的节点是否是叶子节点，
+				// 下一个出队列的节点就是需要判断是否是叶子的节点
 			}
 		}
 		return isCBT;
@@ -97,10 +100,13 @@ public class Code01_IsCBT {
 		if(X == null) { // 空树，Info好设置
 			return new Info(true, true, 0);
 		}
+		// 递归收集左右子树信息
 		Info leftInfo = process(X.left);
 		Info rightInfo = process(X.right);
 		// X节点为头的树，构造Info
+		// X节点为头的树是否满，需要满足左树、右树都是满的、而且高度相等
 		boolean isFull = leftInfo.isFull && rightInfo.isFull && leftInfo.hegiht == rightInfo.hegiht;
+		// X节点为头的树的高，左树和右树的高最大值 + 1
 		int height = Math.max(leftInfo.hegiht, rightInfo.hegiht) + 1;
 		boolean isComplete = false;
 		if(leftInfo.isFull && rightInfo.isFull && leftInfo.hegiht == rightInfo.hegiht) {

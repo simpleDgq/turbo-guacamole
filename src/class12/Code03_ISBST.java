@@ -6,7 +6,7 @@ public class Code03_ISBST {
 	 * 定义：任意一个节点X，它左树的节点的值都小于X，右树都大于X，则是搜索二叉树
 	 * 
 	 * 思路：
-	 * 一颗树是搜索二叉树，对于X来说，则它的左树必须是搜索二叉树，右树叶必须是
+	 * 一颗树是搜索二叉树，对于X来说，则它的左树必须是搜索二叉树，右树叶也必须是搜索二叉树
 	 * 而且左树的最大值 < X; 右树的最小值 > X
 	 * 
 	 * 对左树来说，需要搜集：isBST, max
@@ -47,15 +47,17 @@ public class Code03_ISBST {
 		return process(head).isBST;
 	}
 	public static Info process(Node X) {
-		if(X == null) {// 空树的时候，Info不好设置（max和min不知道怎么设置），直接返回null
+		if(X == null) {// 空树的时候，Info不好设置(max和min不知道怎么设置),直接返回null
 			return null;
 		}
 		Info leftInfo = process(X.left);
 		Info rightInfo = process(X.right);
 		// 构造X节点的相关信息
 		boolean isBST = true;
+		// 求X为头结点的整棵树的最大、最小值
 		int max = X.value;
 		int min = X.value;
+		// 左右两边分别PK，求出X为头的整棵树的最大、最小值
 		if(leftInfo != null) {
 			max = Math.max(leftInfo.max, max);
 			min = Math.min(leftInfo.min, min);
@@ -64,8 +66,8 @@ public class Code03_ISBST {
 			max = Math.max(rightInfo.max, max);
 			min = Math.min(rightInfo.min, min);
 		}
-		if((leftInfo != null && !leftInfo.isBST)  // 左树或者右树平衡，或者左树最大值大于等于X的值，
-													//或者右树最小值小于等于X的值，那么X为头的整棵树就不是平衡的
+		if((leftInfo != null && !leftInfo.isBST)  // 左树或者右树不是搜索二叉树，或者左树最大值大于等于X的值，
+													//或者右树最小值小于等于X的值，那么X为头的整棵树就不是搜索二叉树
 				|| (rightInfo != null && !rightInfo.isBST)
 				|| (leftInfo != null && leftInfo.max >= X.value)
 				|| (rightInfo != null && rightInfo.min <= X.value)) {

@@ -18,7 +18,7 @@ public class Code04_MaxDistance {
 	 * 要搜集的信息是：maxDistane和height
 	 * 
 	 * 对于X节点为头的整棵树，构造这些信息，最大距离就是左树最大距离、右树最大距离以及最大距离是左树距离X的最大距离 + 右树距离X的最大距离 + 1 三者的最大值
-	 * height就是 左树高度和右树高度最大值 + 1
+	 * height就是: 左树高度 + 右树高度最大值 + 1
 	 */
 	public static class Node {
 		int value;

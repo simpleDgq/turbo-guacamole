@@ -79,11 +79,14 @@ public class Code05_IsFullTree {
 	}
 
 	public static Info2 process2(Node h) {
-		if (h == null) {
+		if (h == null) { // 空树是满的，高度为0
 			return new Info2(true, 0);
 		}
+		// 搜集左右子树信息
 		Info2 leftInfo = process2(h.left);
 		Info2 rightInfo = process2(h.right);
+		// X为头的整棵树构造info
+		// X为头的整颗数是不是满的? 需要满足左满、右满、而且左右子树高度一样
 		boolean isFull = leftInfo.isFull && rightInfo.isFull && leftInfo.height == rightInfo.height;
 		int height = Math.max(leftInfo.height, rightInfo.height) + 1;
 		return new Info2(isFull, height);

@@ -15,7 +15,7 @@ public class Code06_MaxSubBSTSize {
 	 * 左树的节点数size
 	 * 右树的节点数size
 	 * 左树是否是搜索二叉树isBST，右树是否是搜索二叉树isBST ==> 左树和右树是否是搜索二叉树，可以通过maxBSTSize 是否等于size判断，所以isBST不用搜集。
-	 * 左树的最小值，右树的最小值
+	 * 左树的最大值，右树的最小值
 	 * 
 	 * 取并集，要搜集的信息为：
 	 * maxBSTSize
@@ -71,6 +71,7 @@ public class Code06_MaxSubBSTSize {
 		Info leftInfo = process(X.left);
 		Info rightInfo = process(X.right);
 		// 以X为头节点的树，构造Info
+		// 以X为头节点的整颗数，求最大、最小值、以及节点数量
 		int maxBSTSize = 0;
 		int max = X.value;
 		int min = X.value;

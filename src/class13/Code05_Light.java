@@ -1,6 +1,6 @@
 package class13;
 
-public class Code04_Light {
+public class Code05_Light {
 	/**
 	 * 给定一个字符串str，只由'X'和'.'两种字符构成
 	 * 'X'表示墙，不能放灯，也不需要点亮；'.'表示居民点，可以放灯，需要点亮

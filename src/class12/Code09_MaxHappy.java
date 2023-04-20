@@ -6,6 +6,7 @@ import java.util.List;
 public class Code09_MaxHappy {
 	/**
 	 * 派对的最大快乐值
+	 * 
 	 *  员工信息的定义如下:
 	 *	class Employee {
 	 *	    public int happy; // 这名员工可以带来的快乐值
@@ -41,7 +42,7 @@ public class Code09_MaxHappy {
 	 */
 	
 	public static class Employee {
-		public int happy; // 这名员工有哪些直接下级
+		public int happy; // 这名员工的快乐值
 		List<Employee> subordinates;// 这名员工有哪些直接下级
 		public Employee(int h) {
 			happy = h;
@@ -50,8 +51,8 @@ public class Code09_MaxHappy {
 	}
 	
 	public static class Info {
-		int comingMaxHappy;
-		int noComingMaxHappy;
+		int comingMaxHappy; // 来能得到的最大快乐值
+		int noComingMaxHappy; // 来能得到的最大快乐值
 		public Info(int comingMaxHappy, int noComingMaxHappy) {
 			this.comingMaxHappy = comingMaxHappy;
 			this.noComingMaxHappy = noComingMaxHappy;
@@ -73,10 +74,12 @@ public class Code09_MaxHappy {
 		int noComingMaxHappy = 0;// X不来的情况下，maxHappy
 		List<Employee> nexts = X.subordinates;
 		for(Employee next: nexts) { 
+			// X节点下的每一个节点，可来可不来，递归求出来和不来的最大值
 			Info nextComingOrNoComingInfo = process(next);
-			// X 节点不来，它的noComingMaxHappy, 是X下面的节点来与不来的最大值累加
+			// 分别构造出X节点的来和不来的最大快乐值
+			// 1. 如果 X 节点不来，它的noComingMaxHappy, 是X下面的节点来与不来的最大值累加
 			noComingMaxHappy += Math.max(nextComingOrNoComingInfo.noComingMaxHappy, nextComingOrNoComingInfo.comingMaxHappy);
-			// X 节点来，它的noComingMaxHappy，是它下面的节点不来的最大值累加
+			// 2. 如果 X 节点来，它的noComingMaxHappy，是它下面的节点不来的最大值累加
 			comingMaxHappy += nextComingOrNoComingInfo.noComingMaxHappy;
 		}
 		return new Info(comingMaxHappy, noComingMaxHappy);

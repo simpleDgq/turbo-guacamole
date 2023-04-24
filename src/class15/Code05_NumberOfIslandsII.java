@@ -2,7 +2,7 @@ package class15;
 
 import java.util.ArrayList;
 
-public class Code04_NumberOfIslandsII {
+public class Code05_NumberOfIslandsII {
 	
 	/**
 	 * 给定一个矩阵的行和列数，初始状态全部是0，给定一个数组，数组的每一个元素是[i,j],

@@ -1,6 +1,6 @@
 package class15;
 
-public class Code02_FriendCircles {
+public class Code03_FriendCircles {
 	/**
 	 * 一群朋友中，有几个不相交的朋友圈（现在改成省份了）
 	 * https://leetcode.com/problems/friend-circles/
@@ -14,6 +14,9 @@ public class Code02_FriendCircles {
 	* 遍历给定的数组的右上部分，如果(i,j)位置是1，表示这两个省份能够连接，
 	* 直接将i和j合并到并查集中，最终返回并查集中集合的数量。
 	* 
+	* 为什么值遍历数组的右上部分? 比如矩阵是5*5的，那么1行3列位置的值是1，表示的事1城市和3城市直接连接，
+	* 反过来，3行1列，也是表示的3城市和1城市相连；所以左下部分可以不考虑。
+	* 
 	* 用数组实现并查集
 	*/
 	
@@ -23,7 +26,8 @@ public class Code02_FriendCircles {
     	}
     	int N = isConnected.length;
     	UnionFind unfind = new UnionFind(N);
-    	for(int i = 0; i <= N - 1; i++) {
+    	// 这里不包含对角线的元素，对角线的元素，在UnionFind初始化的时候，都加入到并查集中了
+    	for(int i = 0; i <= N - 2; i++) {
     		for(int j = i + 1; j <= N - 1; j++) {
     			if(isConnected[i][j] == 1) { // 如果i和j相连
     				unfind.union(i, j);

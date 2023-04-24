@@ -1,6 +1,6 @@
 package class15;
 
-public class Code03_NumberOfIslands1 {
+public class Code04_NumberOfIslands1 {
 	/**
 	 * 给定一个二维数组matrix，里面的值不是1就是0，上、下、左、右相邻的1认为是一片岛，返回matrix中岛的数量.
 	 * 

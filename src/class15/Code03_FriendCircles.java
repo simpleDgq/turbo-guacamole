@@ -29,7 +29,7 @@ public class Code03_FriendCircles {
     	// 这里不包含对角线的元素，对角线的元素，在UnionFind初始化的时候，都加入到并查集中了
     	for(int i = 0; i <= N - 2; i++) {
     		for(int j = i + 1; j <= N - 1; j++) {
-    			if(isConnected[i][j] == 1) { // 如果i和j相连
+    			if(isConnected[i][j] == 1) { // 如果i和j相连，加入到并查集中
     				unfind.union(i, j);
     			}
     		}
@@ -47,6 +47,7 @@ public class Code03_FriendCircles {
     		size = new int[N];
     		helper = new int[N];
     		sets = N; // 一开始有N个集合
+    		// 刚开始，每个数单独成为一个集合
     		for(int i = 0; i <= N - 1; i++) {
     			parents[i] = i;
     			size[i] = 1;
@@ -58,13 +59,14 @@ public class Code03_FriendCircles {
     			helper[hi++] = i;
     			i = parents[i];
     		}
-//    		for(int cur : helper) { // 如果helper没有元素，全是0的时候，这个循环也会执行，会将parents设置为0
+    		// 这种写法，如果helper没有元素，全是0的时候，这个循环也会执行，会将parents设置为0
+    		// 所以不能这样写
+//    		for(int cur : helper) {
 //    			parents[cur] = i;
 //    		}
-    		 for(hi--; hi >= 0;) {
-                 parents[helper[hi]] = i;
-                 hi--;
-             }
+    		for(hi--; hi >= 0; hi--) {
+                parents[helper[hi]] = i;
+            }
     		return i;
     	}
     	public void union(int i, int j) {
@@ -73,6 +75,7 @@ public class Code03_FriendCircles {
     		if(fatheri != fatherj) {
     			if(size[i] < size[j]) { // 小挂大
     				size[j] += size[i];
+    				// i代表节点代表的小集合，挂在j代表节点代表的大集合上
     				parents[fatheri] = fatherj;
     			} else {
     				size[i] += size[j];

@@ -26,10 +26,12 @@ public class Code02_UnionFind {
 		// 从i开始寻找集合代表点
 		public int find(int i) {
 			int hi = 0;
+			// 找i节点，沿途的节点放在help数组中
 			while (i != father[i]) {
 				help[hi++] = i;
 				i = father[i];
 			}
+			// 从help数组的后面开始，依次将经过的节点直接挂在代表节点上
 			for (hi--; hi >= 0; hi--) {
 				father[help[hi]] = i;
 			}
@@ -46,6 +48,7 @@ public class Code02_UnionFind {
 			int fx = find(x);
 			int fy = find(y);
 			if (fx != fy) {
+				// 小挂大
 				if (size[fx] >= size[fy]) {
 					size[fx] += size[fy];
 					father[fy] = fx;

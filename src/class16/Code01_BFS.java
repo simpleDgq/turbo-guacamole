@@ -18,6 +18,7 @@ public class Code01_BFS {
 			return;
 		}
 		Queue<Node> queue = new LinkedList<Node>();
+		// set记录是否入过队列
 		HashSet<Node> set = new HashSet<Node>();
 		queue.add(node);
 		set.add(node);
@@ -25,6 +26,7 @@ public class Code01_BFS {
 		while(!queue.isEmpty()) {
 			cur = queue.poll();
 			System.out.print(cur.value);
+			// 将当前节点能够到达的节点，如果没有入过队列，则全部加入
 			for(Node next : cur.nexts) {
 				if(!set.contains(next)) {
 					queue.add(next);

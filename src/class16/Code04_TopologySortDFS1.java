@@ -41,7 +41,7 @@ public class Code04_TopologySortDFS1 {
 	// 记录每个节点的点次
 	public static class Record {
 		long nodes; // 点次
-		DirectedGraphNode node;
+		DirectedGraphNode node; // 对应的开始节点
 		public Record(DirectedGraphNode node, long nodes) {
 			this.nodes = nodes;
 			this.node = node;
@@ -52,7 +52,7 @@ public class Code04_TopologySortDFS1 {
 		@Override
 		public int compare(Record o1, Record o2) {
 			// TODO Auto-generated method stub
-//			return (int) (o1.nodes - o2.nodes); // 可能越界
+//			return (int) (o1.nodes - o2.nodes); // 这样写，int可能越界
 			return o1.nodes == o2.nodes ? 0 : (o1.nodes > o2.nodes ? -1 : 1); // 从大到小排序
 		}
 	}
@@ -62,33 +62,36 @@ public class Code04_TopologySortDFS1 {
 		if(node == null) {
 			return 0;
 		}
-		if(records.containsKey(node)) { // 计算过。map中取直接返回
+		// 计算过。map中取直接返回
+		if(records.containsKey(node)) {
 			return records.get(node).nodes;
 		}
-		// 没有计算过，则遍历该节点的所有节点，求点次，然后累加
+		// 没有计算过，则遍历该节点的所有邻居节点个数(点次)，然后累加
 		long nodes = 0;
 		for(DirectedGraphNode cur : node.neighbors) {
+			// 所有邻居节点的点次累加
 			nodes += fNodes(cur, records);
 		}
+		// node+1加上自己，放入map缓存中
 		records.put(node, new Record(node, nodes + 1));
 		return nodes + 1;
 	}
 	
-	
 	public static ArrayList<DirectedGraphNode> topSort(ArrayList<DirectedGraphNode> graph) {
 		 ArrayList<DirectedGraphNode> ans = new  ArrayList<DirectedGraphNode>();
 		 HashMap<DirectedGraphNode, Record> records = new HashMap<DirectedGraphNode, Record>();
+		 // 给定的图中，每个节点出发，都计算好点次，放入map中
 		 for(DirectedGraphNode cur : graph) {
 			 fNodes(cur, records);
 		 }
-		 // 根据点次对record中的节点进行排序
-//		 Arrays.sort(records, new recordComparator());
+		 // map中取出每个节点的点次记录record，放入一个数组中，方便后面进行排序
 		 ArrayList<Record> recordArr = new ArrayList<>();
 		 for(Record record : records.values()) {
 			 recordArr.add(record);
 		 }
+		 // 根据点次对recordArr中的节点进行排序。从大到小。
 		 recordArr.sort(new recordComparator());
-		 
+		 // 拍好序的结果就是答案
 		 for(Record record : recordArr) {
 			 ans.add(record.node);
 		 }

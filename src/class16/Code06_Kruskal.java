@@ -9,11 +9,13 @@ import java.util.Stack;
 
 public class Code06_Kruskal {
 	/**
-	 * 最小生成数算法：K算法
+	 * 最小生成数算法：克鲁斯卡尔算法
 	 * 最小生成树: 在不影响图连通的情况下, 删掉一些边，使得剩下的边的权重的和最小，则生成的树就是最小生成树。
 	 * 
 	 * 思路：并查集
-	 * 从小到大，遍历所有的边，如果会形成环，则不要，不会形成环，则要。
+	 * 考查所有的边，从权值小的到大的一直考查，如果当前边不会形成环，则要当前边，如果会形成环，则不要当前边。
+	 * 
+	 * 通过并查集来判断是否会形成环，如果当前边的两个节点在同一个集合中，则会形成环，不要这条边。
 	 * 
 	 * 弄一个并查集, 初始状态是每条节点一个集合；
 	 * 将所有的边从小到大排序，然后遍历，取出一条边，看它的from和to节点，是否在同一个并查集中，
@@ -22,17 +24,21 @@ public class Code06_Kruskal {
 	 */
 
 	public static ArrayList<Edge> K(Graph graph) {
+		// 结果集，存储所有的边
 		ArrayList<Edge> ans = new ArrayList<Edge>();
 		UnionFind unionFind = new UnionFind(graph);
-		Queue<Edge> heap = new PriorityQueue<Edge>(); // 小根堆，从小到大排序
-		for(Edge edge : graph.edges) { // 将边从小到大进行排序
+		// 小根堆，存放边，边按权重从小到大排序
+		Queue<Edge> heap = new PriorityQueue<Edge>(new EdgeComparator());
+		for(Edge edge : graph.edges) {
 			heap.add(edge);
 		}
-		while(!heap.isEmpty()) { // 从小到大遍历每一条边
+		// 从小到大遍历每一条边
+		while(!heap.isEmpty()) {
 			Edge edge = heap.poll();
 			Node from = edge.from;
 			Node to = edge.to;
-			if(!unionFind.isSameSet(from, to)) { // 这条边的两个节点不在同一个集合中，要这条边，并且合并这两个节点所在的集合
+			// 这条边的两个节点不在同一个集合中，要这条边，并且合并这两个节点所在的集合
+			if(!unionFind.isSameSet(from, to)) {
 				ans.add(edge);
 				unionFind.union(from, to);
 			}
@@ -49,7 +55,7 @@ public class Code06_Kruskal {
 	}
 	
 	public static class UnionFind {
-		HashMap<Node, Node> parents; //key: 当前节点 value: 每个节点所属的集合的代表节点
+		HashMap<Node, Node> parents; //key: 当前节点; value: 每个节点所属的集合的代表节点
 		HashMap<Node, Integer> size;
 		
 		public UnionFind(Graph graph) {

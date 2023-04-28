@@ -14,12 +14,11 @@ public class Code04_TopologySortDFS1 {
 	 * 题目中给出的图的结构，只有当前节点label和它的直接邻居。
 	 * 如果转换成上面经典的结构，会增加常数时间，可以直接在该结构上进行拓扑排序。
 	 * 
-	 * 思路1: 
+	 * 思路1: 生成好所有的节点的点次之后，将所有节点，按点次从小到大进行排序，拍好的顺序就是拓扑序。
 	 * 从X出发走过的所有的路，所有的点都统计完之后，如果数量是100；
 	 * 从Y出发走过的所有的路，所有的点都统计完之后，如果数量是80；
 	 * 100 > 80, 那么在拓扑排序的结果中，X一定在Y的前面。
 	 * 
-	 * 生成好所有的节点的点次之后，将所有节点，按点次从小到大进行排序，拍好的顺序就是拓扑序。
 	 * 
 	 * 如何生成一个点的点次？递归。 弄一个map存储已经计算过点次的节点。下次要用的时候直接取。
 	 * 如果当前节点的点次计算过，则直接从map缓存中取出返回，
@@ -40,8 +39,8 @@ public class Code04_TopologySortDFS1 {
 	
 	// 记录每个节点的点次
 	public static class Record {
-		long nodes; // 点次
-		DirectedGraphNode node; // 对应的开始节点
+		long nodes; // 对应的点次是多少
+		DirectedGraphNode node; // 从哪个节点出发
 		public Record(DirectedGraphNode node, long nodes) {
 			this.nodes = nodes;
 			this.node = node;
@@ -91,7 +90,7 @@ public class Code04_TopologySortDFS1 {
 		 }
 		 // 根据点次对recordArr中的节点进行排序。从大到小。
 		 recordArr.sort(new recordComparator());
-		 // 拍好序的结果就是答案
+		 // 排好序的结果就是答案
 		 for(Record record : recordArr) {
 			 ans.add(record.node);
 		 }

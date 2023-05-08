@@ -4,6 +4,8 @@ public class Code01_Hanoi {
 	
 	/**
 	 * 汉诺塔
+	 * 打印n层汉诺塔从最左边移动到最右边的全部过程（递归实现）
+	 * 非递归不重要
 	 * 
 	 * 思路: 
 	 * 将圆盘从左挪动到右，经历3个大步骤：
@@ -107,21 +109,26 @@ public class Code01_Hanoi {
 		3. 1 - n-1从other到to，剩下的就是from
 	 */
 	public static void hanoi2(int N) {
-		process(N, "left", "mid", "right");
+		process(N, "left", "right", "mid");
 	}
 	public static void process(int N, String from, String to, String other) {
-		if(N == 1) {
+		if(N == 1) { // 如果只有一个圆盘了，直接从from移动到to
 			System.out.println("Move " + 1 + " from " + from + " to " + to);
 		} else {
+			// 1 到N-1个圆盘从from到other上
 			process(N - 1, from, other, to);
+			// N 号圆盘从from直接移动到to
 			System.out.println("Move " + N + " from " + from + " to " + to);
+			// 搞定剩下的1到N-1号圆盘，从other到to上
 			process(N - 1, other, to, from);
 		}
 	}
+	
 	public static void main(String[] args) {
 		int n = 3;
 		hanoi1(n);
 		System.out.println("============");
 		hanoi2(n);
+		System.out.println("============");
 	}
 }

@@ -20,10 +20,10 @@ public class Code01_RobotWalk {
 	}
 	
 	// aim 要走到的位置
-	// rest 剩余的步数
-	// cur 当前在哪
+	// rest 剩余的要走的步数
+	// cur 当前来到的位置
 	// 有哪些位置 1~N
-	// 当前机器人在cur位置，还有rest步能走，要走到aim位置，给我返回有多少中走法
+	// 当前机器人在cur位置，还有rest步要走，要走到aim位置，给我返回有多少种走法
 	public static int process(int aim, int rest, int cur, int N) {
 		if(rest == 0) { // 剩余0步，到达目标，返回1，没有到达，返回0
 			return aim == cur? 1 : 0;
@@ -34,7 +34,7 @@ public class Code01_RobotWalk {
 		if(cur == N) { // 当前在N，下一步只能走向N - 1，递归求方法数
 			return process(aim, rest - 1, N - 1, N);
 		}
-		// 其它位置，可以向左或者向右走
+		// 其它位置，可以向左或者向右走，两者累加就是答案
 		return process(aim, rest - 1, cur - 1, N) + //向左
 				process(aim, rest - 1, cur + 1, N);  // 向右
 	}
@@ -47,10 +47,14 @@ public class Code01_RobotWalk {
 		if(P <= 0 || P > N || K <= 0 || M <= 0 || M > N || N < 2 ) {
 			return -1;
 		}
+		// 0表示不能到达目标位置
+		// -1 表示还没有计算过
+		// 大于0的数，表示有多少种方法能够到达目标位置
 		int dp[][] = new int[N + 1][K + 1];
 		for(int i = 0; i<= N; i++) {
 			for(int j = 0; j <= K; j++) {
-				dp[i][j] = -1; // 初始化为-1，表示当前没有缓存值，需要计算
+				// 初始化为-1，表示当前没有缓存值，需要计算
+				dp[i][j] = -1;
 			}
 		}
 		return process(P, K, M, N, dp);
@@ -87,13 +91,18 @@ public class Code01_RobotWalk {
 			return -1;
 		}
 		int dp[][] = new int[N + 1][K + 1];
+		// 根据basecase，填好第一列。只有cur=aim的时候才是1，其它都是0 --> 这里有启发，后面按照列填
 		dp[P][0] = 1;
+		// 一列一列填
 		for(int rest = 1; rest <= K; rest++) { // 按列生成
-			dp[1][rest] = dp[2][rest - 1]; // 第一行
-			for(int cur = 2; cur <= N - 1; cur++) { // 中间行
+			// 填好第一行。依赖左下位置
+			dp[1][rest] = dp[2][rest - 1]; 
+			// 中间行。依赖左上和左下位置
+			for(int cur = 2; cur <= N - 1; cur++) {
 				dp[cur][rest] = dp[cur - 1][rest - 1] + dp[cur + 1][rest - 1];
 			}
-			dp[N][rest] = dp[N - 1][rest - 1]; // 第N行
+			// 填好第N行。依赖左上位置
+			dp[N][rest] = dp[N - 1][rest - 1];
 		}
 		return dp[M][K];
 	}

@@ -3,6 +3,8 @@ package class19;
 public class Code02_ConvertNumToStr {
 	
 	/**
+	 * 数字转字符串
+	 * 
 	 * 规定1和A对应、2和B对应、3和C对应...26和Z对应
 	 * 那么一个数字字符串比如"111”就可以转化为:
 	 * "AAA"、"KA"和"AK"

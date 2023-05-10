@@ -3,8 +3,22 @@ package class19;
 public class Code04_LongestCommonSubsequence {
 	// 链接：https://leetcode.com/problems/longest-common-subsequence/
 	/**
-	 * 求两个字符串的最长公共子串的长度
-	 * 样本对应模型
+	 * 求两个字符串的最长公共子串的长度 - 样本对应模型
+	 * 
+	 * 结尾字符做文章:
+	 * 1. str1只剩一个字符了，str2还有字符  （i == 0的情况）
+	 * 2. str2只剩一个字符了，str1还有字符  （j == 0的情况）
+	 * 3. str1和str2都只剩一个字符了 （i == 0 && j == 0的情况）
+	 * 4. str1和str2都还有多个字符 （i和j都不等于0的情况）
+	 * 	// a) 最长公共子序列，一定不以str1[i]字符结尾、也一定不以str2[j]字符结尾
+	 *  // b) 最长公共子序列，可能以str1[i]字符结尾、但是一定不以str2[j]字符结尾
+	 *  // c) 最长公共子序列，一定不以str1[i]字符结尾、但是可能以str2[j]字符结尾
+	 *  // d) 最长公共子序列，必须以str1[i]字符结尾、也必须以str2[j]字符结尾
+	 *  
+	 *  a是个垃圾，因为a是在str1[0...i-1]与str2[0...j-1]上求公共子串
+	 *  而b是在str1[0...i]与str2[0...j-1]上求，b的范围已经包含a了（
+	 *  b求出来的最大长度一定是大于等于a情况的），没必要
+	 *  再去求。所以直接省略a。
 	 */
 	public static int longestCommonSubs(String str1, String str2) {
 		if(str1 == null || str2 == null || 
@@ -70,7 +84,9 @@ public class Code04_LongestCommonSubsequence {
 		int M = arr2.length;
 		
 		int[][] dp = new int[N][M];
+		// 填好(0,0)位置
 		dp[0][0] = arr1[0] == arr2[0] ? 1 : 0;
+		// 填好第一行
 		for(int j = 1; j < M; j++) {
 			if(arr1[0] == arr2[j]) {
 				dp[0][j] = 1;
@@ -78,6 +94,7 @@ public class Code04_LongestCommonSubsequence {
 				dp[0][j] = dp[0][j - 1];
 			}
 		}
+		// 填好第一列
 		for(int i = 1; i < N; i++) {
 			if(arr1[i] == arr2[0]) {
 				dp[i][0] = 1;
@@ -85,6 +102,7 @@ public class Code04_LongestCommonSubsequence {
 				dp[i][0] = dp[i - 1][0];
 			}
 		}
+		// 填其它位置 从左往右，从上往下填
 		for(int i = 1; i < N; i++) {
 			for(int j = 1; j < M; j++) {
 				int p1 = dp[i][j - 1];

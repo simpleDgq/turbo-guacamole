@@ -35,9 +35,9 @@ public class Code04_LongestCommonSubsequence {
 		if(i == 0 && j == 0) { // 放最前，否则会报错（i和j同时为0，j-1会越界）
 			return str1[i] == str2[j] ? 1 : 0;
 		} else if(i == 0) { // str1只有一个字符了
-			if(str1[i] == str2[j]) { // 如果最后一个字符相等，说明已经找到了，返回1
+			if(str1[i] == str2[j]) { // 如果最后一个字符相等，说明已经找到了，返回1。
 				return 1;
-			} else {
+			} else { // 否则说明没有在str2里面没有找到一个字符与str1的一个字符对应，递归去str2里面继续找
 				return process(str1, str2, i, j - 1); // 不相等，去j - 1位置找
 			}
 		} else if(j == 0) { // str2 只有一个字符了

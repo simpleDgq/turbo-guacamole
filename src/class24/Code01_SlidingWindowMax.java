@@ -15,34 +15,48 @@ public class Code01_SlidingWindowMax {
 	 * 1.搞一个双端队列（存放的是下标），从左往右遍历数组中所有的数（R一直++)，如果当前位置的数比双端队列尾部的下标
 	 * 指向的数大，则弹出尾部的下标，将当前元素的下标加进去
 	 * 2. 加入一个元素之后，判断队列头元素是否过期，如果过期，需要弹出。因为窗口大小是w，最多只能存储w个元素，如果加入当前
-	 * 元素之后，窗口大小超过了w，就需要弹出最左边的元素。（R=0，w=3，则只能存-2~0三个元素，-3就是过期的下标，应该弹出，
-	 * 也就是队列头元素 如果 等于R-W，则弹出）
+	 * 元素之后，窗口大小超过了w，就需要弹出最左边的元素。（R=0，w=3，则只能存-2~0三个元素，-3就是过期的下标，-3肯定不应该在
+	 * 当前的窗口中，应该弹出，也就是队列头元素 如果 等于R-W，则弹出）
 	 * 3. 如果窗口增长到了w这个长度，就该收集最大值，最大值就是队列头元素下标指向的值。R >= w - 1的时候，就成长到收集的时候了。
+	 * 
+	 * 队列的意义：其实是记录的有可能成为max的值。
+	 * 如果新进入窗口的元素比左边窗口内的一部分元素大，那么左边这些窗口内的这部分元素就不可能再成为最大值了，
+	 * 因为窗口右移，新进来的肯定比晚进来的要晚点退出窗口，而且新来的更大，无论怎样取最大都有这个新来的值兜底，
+	 * 所以即使把左边那些较小的值从队列中移出去也不会有影响。
+	 * 
+	 * 有趣的总结:  队尾比不过同龄人的删掉，队头超出时代区间的删掉，历史就是这么不断更迭的。
 	 */
 	
-	public static int[] windowMax(int arr[], int w) {
-		if(arr == null || arr.length == 0 || w <= 0) {
-			return null;
-		}
-		int N = arr.length;
-		int ans[] = new int[N - w + 1]; // 要收集的答案个数是N-W+1，举例子推
-		LinkedList<Integer> win = new LinkedList<Integer>();
-		int index = 0;
-		for(int R = 0; R <= N - 1; R++) {
-			int cur = arr[R];
-			while(!win.isEmpty() && arr[win.peekLast()] <= cur) { // 如果尾部小，一直弹出
-				win.pollLast();
-			}
-			win.addLast(R);
-			// 判断下标是否过期，过期，则弹出队头
-			if(win.peekFirst() == R - w) {
-				win.pollFirst();
-			}
-			// 是否形成有效窗口，形成则收集答案
-			if(R >= w - 1) {
-				ans[index++] = arr[win.peekFirst()];
-			}
-		}
-		return ans;
+	public static int[] windowMax(int nums[], int k) {
+        if (nums == null || nums.length == 0 || k <= 0) {
+            return null;
+        }
+        // 存储的是可能作为max的值的下标
+        LinkedList<Integer> win = new LinkedList<Integer>();
+        int N = nums.length;
+        int index = 0;
+
+        int ans[] = new int[N - k + 1]; // 至于为什么是N - k + 1, 举几个例子就得到了
+
+        for (int R = 0; R <= N - 1; R++) {
+            // 如果队列中的数比当前的nums[R]小，则一直弹出
+            // 新进入窗口的元素比左边窗口内的一部分元素大，那么左边这些窗口内的这部分元素就不可能再成为最大值了
+            while (!win.isEmpty() && nums[win.peekLast()] <= nums[R]) {
+                win.pollLast();
+            }
+            win.addLast(R);
+            // 淘汰队列中过期的下标
+            // 窗口位置来到了R，假如R=3. k的大小是2
+            // 那么窗口里面的元素的下标应该是2~3 ，所以<= 1的都应该弹出
+            // 因为R每次都只会+1，就到了这里进行判断, <= 1的元素肯定只会是队列中的最前面一个
+            if (R - k == win.peekFirst()) {
+                win.pollFirst();
+            }
+            // 如果形成了有效窗口，则记录答案
+            if (R >= k - 1) {
+                ans[index++] = nums[win.peekFirst()];
+            }
+        }
+        return ans;
 	}
 }

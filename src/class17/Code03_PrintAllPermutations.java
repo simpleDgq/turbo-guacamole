@@ -81,6 +81,9 @@ public class Code03_PrintAllPermutations {
 	}
 
 	/**
+	 *str里面的字符 交换一次得到一个答案
+	 *交换一次，相当于固定了前面的一小段字符串，然后index+1去搜集后面的答案
+	 *当答案搜集完之后，返回了，要恢复一下现场，因为index位置要继续和新的i位置去交换了
 	 * 解法二(优化参数)
 	 * 给你str以及当前应该考虑的字符的index，
 	 * 和后面的字符交换，考虑谁可以做index位置，你给我返回所有可能的结果
@@ -143,4 +146,5 @@ public class Code03_PrintAllPermutations {
 		chs[i] = chs[j];
 		chs[j] = tmp;
 	}
+
 }

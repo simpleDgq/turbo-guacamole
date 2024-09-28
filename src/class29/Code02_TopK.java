@@ -31,22 +31,18 @@ public class Code02_TopK {
 		if(K >= N) {
 			return null;
 		}
-		K = Math.min(N, K);
-		// 从底往上建堆
+		// 从底往上建堆：每个元素都来一个heapify，向下调整一次
 		for(int i = N - 1; i >= 0; i--) {
 			heapify(arr, i, N);
 		}
 
+		// 堆排序  大根堆，没交换一次，就会将堆顶的元素排好序，排好序的元素放在了数组的后面
 		int heapSize = N;
-//		int ans[] = new int[K];
-//		int index = 0;
 		swap(arr, 0, --heapSize);
-//		ans[index++] = arr[heapSize];
 		heapify(arr, 0, heapSize);
 		int count = 1;
 		while(count < K && heapSize > 0) { // 只确定K个数，进行调整
 			swap(arr, 0, --heapSize);
-//			ans[index++] = arr[heapSize]; // 直接取，也可以后面for循环取
 			heapify(arr, 0, heapSize);
 			count++;
 		}

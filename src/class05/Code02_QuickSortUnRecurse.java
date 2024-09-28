@@ -31,8 +31,9 @@ public class Code02_QuickSortUnRecurse {
 		if(L >= R) {
 			return;
 		}
-		swap(arr, L + (int)(Math.random() * (R - L + 1)), R);
-		int equals[] = partition(arr, L, R);
+		// [L,R]范围随机选择一个数
+		int X =  arr[L + (int)(Math.random() * (R - L + 1))];
+		int equals[] = partition(arr, L, R, X);
 		// 一次划分，多出两个左右任务，放入栈
 		Stack<OP> stack = new Stack<OP>();
 		stack.push(new OP(L, equals[0] - 1));
@@ -42,8 +43,8 @@ public class Code02_QuickSortUnRecurse {
 			// 如果L >= R, 只有一个元素或者越界，直接return
 			if(op.l < op.r) { // L>=R 直接return
 				// 划分
-				swap(arr, op.l + (int)(Math.random() * (op.r - op.l + 1)), op.r);
-				equals = partition(arr, op.l, op.r);
+				int val =  arr[op.l + (int)(Math.random() * (op.r - op.l + 1))];
+				equals = partition(arr, op.l, op.r, val);
 				// 一次划分，产生新的子任务，加入栈
 				stack.push(new OP(op.l, equals[0] - 1));
 				stack.push(new OP(equals[1] + 1, op.r));
@@ -52,27 +53,20 @@ public class Code02_QuickSortUnRecurse {
 	}
 	
 	// 荷兰国旗问题
-	public static int[] partition(int arr[], int L, int R) {
-		if(L > R) {
-			return new int[] {-1, -1};
-		}
-		if(L == R) {
-			return new int[] { L, L };
-		}
+	public static int[] partition(int arr[], int L, int R, int X) {
 		int less = L - 1; // 小于区的第一个数
-		int more = R;
+		int more = R + 1;
 		int index = L;
 		while(index < more) {
-			if(arr[index] < arr[R]) {
+			if(arr[index] < X) {
 				swap(arr, index++, ++less);
-			} else if(arr[index] > arr[R]) {
+			} else if(arr[index] > X) {
 				swap(arr, index, --more);
 			} else {
 				index++;
 			}
 		}
-		swap(arr, R, more); // 最后一个数要和大于区的第一个数交换，容易忘
-		return new int[] {less + 1, more}; // 返回等于区第一个数和最后一个数
+		return new int[] {less + 1, more - 1}; // 返回等于区第一个数和最后一个数
 	}
 	
 	public static void swap(int arr[], int i, int j) {
@@ -90,8 +84,10 @@ public class Code02_QuickSortUnRecurse {
 			return;
 		}
 		int N = arr.length;
-		swap(arr, (int) (Math.random() * N), N - 1);
-		int[] equalArea = partition(arr, 0, N - 1);
+		int L = 0;
+		int R = N - 1;
+		int X =  arr[L + (int)(Math.random() * (R - L + 1))];
+		int[] equalArea = partition(arr, 0, N - 1, X);
 		int el = equalArea[0];
 		int er = equalArea[1];
 		Queue<OP> queue = new LinkedList<>();
@@ -100,8 +96,8 @@ public class Code02_QuickSortUnRecurse {
 		while (!queue.isEmpty()) {
 			OP op = queue.poll();
 			if (op.l < op.r) {
-				swap(arr, op.l + (int) (Math.random() * (op.r - op.l + 1)), op.r);
-				equalArea = partition(arr, op.l, op.r);
+				int val =  arr[L + (int)(Math.random() * (R - L + 1))];
+				equalArea = partition(arr, op.l, op.r, val);
 				el = equalArea[0];
 				er = equalArea[1];
 				queue.offer(new OP(op.l, el - 1));

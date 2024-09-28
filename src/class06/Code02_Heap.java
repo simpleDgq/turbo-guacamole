@@ -11,7 +11,7 @@ public class Code02_Heap {
 	 * 
 	 * heapify:
 	 * 取元素的时候，堆顶的元素和最后一个元素进行交换，heapSize--，
-	 * 然后向下调整对，堆顶的元素下沉，和它的左右子节点进行比较，和左右子节点中较大的进行交换，
+	 * 然后向下调整堆，堆顶的元素下沉，和它的左右子节点进行比较，和左右子节点中较大的进行交换，
 	 * 继续下沉，直到干不过子节点，或者到达了叶子节点，结束
 	 */
 	public static class MaxHeap {
@@ -56,10 +56,7 @@ public class Code02_Heap {
 		}
 		
 		/**
-		 * 向上调整堆，
-		 * 在index的位置加入了元素，去调整吧
-		 * @param heap
-		 * @param index
+		 * index位置开始，向上调整堆，
 		 */
 		public void heapInsert(int heap[], int index) {
 			// 即使来到0位置，-1/2 = 0, 所以while也会退出
@@ -70,8 +67,7 @@ public class Code02_Heap {
 		}
 		
 		/**
-		 * @param arr
-		 * @param index 插入堆元素的位置
+		 * index位置开始，向下调整堆
 		 */
 		public void heapIfy(int arr[], int index) {
 			int left = index * 2 + 1; // 左节点的位置

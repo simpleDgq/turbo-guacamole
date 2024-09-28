@@ -15,7 +15,7 @@ public class Code02_FiboProblem {
 	    如何快速求 base的n-2次方。 判断次方数二进制的每一位，res从单位阵开始，如果二进制是1，
 	    res里面就则乘上base, 否则不乘; 同时 base 变成 base * base（二次方递增）。
 	 */
-	public static int f(int n) {
+	public int f(int n) {
 		if(n == 1 || n == 2) {
 			return 1;
 		}
@@ -25,7 +25,7 @@ public class Code02_FiboProblem {
 		return res[0][0] + res[1][0];
 	}
 	
-	public static int[][] martixPower(int base[][], int p) {
+	public int[][] martixPower(int base[][], int p) {
 		int N = base.length;
 		int M = base[0].length;
 		int res[][] = new int[N][M];
@@ -43,7 +43,7 @@ public class Code02_FiboProblem {
 	}
 	
 	// 两个矩阵相乘。有点不好写
-	public static int[][] product(int a[][], int b[][]) {
+	public int[][] product(int a[][], int b[][]) {
 		int N = a.length;
 		int M = b[0].length;
 		int K = a[0].length;
